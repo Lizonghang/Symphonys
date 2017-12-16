@@ -21,15 +21,29 @@ class GlobalSetting(object):
                 'menus': [
                     {
                         'url': u'/backend/xadmin/auth/user/',
-                        'icon': 'fafa-user',
+                        'icon': 'fa fa-user',
                         'order': 1,
                         'perm': 'auth.view_user',
                         'title': u'账户'
                     }
                 ],
-                'first_icon': 'fafa-user',
+                'first_icon': 'fa fa-user',
                 'first_url': u'/backend/xadmin/auth/user/',
-                'title': u'管理员账户'
+                'title': u'账户管理'
+            },
+            {
+                'menus': [
+                    {
+                        'url': u'/backend/xadmin/BandWeb/musicale/',
+                        'icon': 'fa fa-music',
+                        'order': 1,
+                        'perm': 'auth.view_user',
+                        'title': u'音乐会'
+                    }
+                ],
+                'first_icon': 'fa fa-music',
+                'first_url': u'/backend/xadmin/BandWeb/musicale/',
+                'title': u'网站管理'
             }
         ]
 
@@ -58,5 +72,19 @@ class RichTextAdmin(object):
         return media
 
 
+class MusicaleAdmin(RichTextAdmin):
+    list_display = ('title_cn', 'title_en', 'update')
+    list_filter = ('title_cn', 'title_en', 'update')
+    search_fields = ('title_cn', 'title_en', 'update')
+    list_editable = ('title_cn', 'title_en')
+    form_layout = (
+        Main(
+            Fieldset('中文版', 'title_cn', 'update', 'content_cn'),
+            Fieldset('英文版', 'title_en', 'update', 'content_en'),
+        ),
+    )
+
+
 xadmin.site.register(CommAdminView, GlobalSetting)
 xadmin.site.register(BaseAdminView, BaseSetting)
+xadmin.site.register(Musicale, MusicaleAdmin)
