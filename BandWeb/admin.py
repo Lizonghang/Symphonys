@@ -1,7 +1,7 @@
 # encoding: utf-8
 from xadmin.views import CommAdminView, BaseAdminView
 from xadmin.layout import Main, Fieldset
-from models import *
+from BandWeb.models import *
 import xadmin
 
 

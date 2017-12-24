@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-import views
+import BandWeb.views as views
 
 urlpatterns = [
     url(r'^richtext/media/upload$', views.upload_media),
+    url(r'^bandweb/musicale/list$', views.view_musicale_list),
+    url(r'^books/(?P<pk>[0-9]+)/$', views.view_musicale_detail),
 ]
