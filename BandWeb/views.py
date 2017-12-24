@@ -34,11 +34,8 @@ def view_musicale_list(request):
         musicale_list = paginator.page(paginator.num_pages)
     content = {
         'musicale_list': musicale_list,
-        'title_cn': Musicale.title_cn,
-        'update': Musicale.update,
-        'main_image': Musicale.main_image,
     }
-    return JsonResponse(serializers.serialize(content), safe=False)
+    return HttpResponse(serializers.serialize('json', content))
 
 
 def view_musicale_detail(request):
@@ -54,5 +51,6 @@ def view_musicale_detail(request):
         'content_cn': musicale.content_cn,
         'title_en': musicale.title_en,
         'content_en': musicale.content_en,
+        'update': musicale.update,
     }
-    return JsonResponse(serializers.serialize(content), safe=False)
+    return HttpResponse(serializers.serialize('json', content))
