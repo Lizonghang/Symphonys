@@ -22,9 +22,10 @@ def upload_media(request):
     return JsonResponse({'error': 0, 'url': media_url})
 
 
+@require_GET
 def view_musicale_list(request):
     musicale_list = Musicale.objects.all()
-    paginator = Paginator(musicale_list, 3)
+    paginator = Paginator(musicale_list, 6)
     page = request.GET.get('page')
     try:
         musicale_list = paginator.page(page)
@@ -35,22 +36,84 @@ def view_musicale_list(request):
     content = {
         'musicale_list': musicale_list,
     }
-    return HttpResponse(serializers.serialize('json', content))
+    return JsonResponse({'error': 0, 'body': content})
 
 
-def view_musicale_detail(request):
-    primary_key = request.GET.get('primary_key')
-    if primary_key == '':
-        return HttpResponseRedirect(reverse('view_musicale_list'))
-    try:
-        musicale = Musicale.objects.get(pk=primary_key)
-    except Musicale.DoesNotExist:
-        return HttpResponseRedirect(reverse('view_musicale_list'))
+@require_GET
+def view_musicale_detail(request, lang, id):
+    obj = YueTuanLeader.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_intro(request, lang):
+    obj = YueTuanIntro.objects.first()
+    content = obj.get_abstract(lang)
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_leader_list(request, lang):
     content = {
-        'title_cn': musicale.title_cn,
-        'content_cn': musicale.content_cn,
-        'title_en': musicale.title_en,
-        'content_en': musicale.content_en,
-        'update': musicale.update,
+        'president': [],
+        'vice_president': []
     }
-    return HttpResponse(serializers.serialize('json', content))
+    for obj in YueTuanLeader.objects.all():
+        obj_info = obj.get_abstract(lang, 'abstract')
+        if obj_info['president_type'] == 0:
+            content['president'].append(obj_info)
+        else:
+            content['vice_president'].append(obj_info)
+    content.update(PresidentAddress.objects.first().get_abstract(lang))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_leader_detail(request, lang, id):
+    obj = YueTuanLeader.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_conductor_list(request, lang):
+    content = []
+    for obj in Conductor.objects.all():
+        content.append(obj.get_abstract(lang, 'abs'))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_conductor_detail(request, lang, id):
+    obj = Conductor.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_director(request, lang):
+    obj = Director.objects.first()
+    content = obj.get_abstract(lang)
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_instrument(request, lang):
+    content = [obj.get_abstract(lang) for obj in InstrumentType.objects.all()]
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_performer_list(request, lang, instrument_id):
+    content = []
+    for obj in Performer.objects.filter(instrument_type=InstrumentType.objects.get(id=instrument_id)):
+        content.append(obj.get_abstract(lang, 'abstract'))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_performer_detail(request, lang, id):
+    obj = Performer.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
+    return JsonResponse({'error': 0, 'body': content})
