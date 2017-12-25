@@ -34,6 +34,20 @@ class GlobalSetting(object):
             {
                 'menus': [
                     {
+                        'url': u'/backend/xadmin/BandWeb/banner/',
+                        'icon': 'fa fa-music',
+                        'order': 1,
+                        'perm': 'auth.view_user',
+                        'title': u'轮播图'
+                    }
+                ],
+                'first_icon': 'fa fa-music',
+                'first_url': u'/backend/xadmin/BandWeb/banner/',
+                'title': u'首页'
+            },
+            {
+                'menus': [
+                    {
                         'url': u'/backend/xadmin/BandWeb/yuetuanintro/',
                         'icon': 'fa fa-music',
                         'order': 1,
@@ -99,7 +113,63 @@ class GlobalSetting(object):
                 ],
                 'first_icon': 'fa fa-music',
                 'first_url': u'/backend/xadmin/BandWeb/musicale/',
-                'title': u'网站管理'
+                'title': u'音乐会'
+            },
+            {
+                'menus': [
+                    {
+                        'url': u'/backend/xadmin/BandWeb/beautymelodyintro/',
+                        'icon': 'fa fa-music',
+                        'order': 1,
+                        'perm': 'auth.view_user',
+                        'title': u'介绍'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/beautymelodynews/',
+                        'icon': 'fa fa-music',
+                        'order': 2,
+                        'perm': 'auth.view_user',
+                        'title': u'新闻'
+                    }
+                ],
+                'first_icon': 'fa fa-music',
+                'first_url': u'/backend/xadmin/BandWeb/beautymelodyintro/',
+                'title': u'天姿国乐'
+            },
+            {
+                'menus': [
+                    {
+                        'url': u'/backend/xadmin/BandWeb/operaintro/',
+                        'icon': 'fa fa-music',
+                        'order': 1,
+                        'perm': 'auth.view_user',
+                        'title': u'介绍'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/operanews/',
+                        'icon': 'fa fa-music',
+                        'order': 2,
+                        'perm': 'auth.view_user',
+                        'title': u'新闻'
+                    }
+                ],
+                'first_icon': 'fa fa-music',
+                'first_url': u'/backend/xadmin/BandWeb/operaintro/',
+                'title': u'歌剧院'
+            },
+            {
+                'menus': [
+                    {
+                        'url': u'/backend/xadmin/BandWeb/businessdynamics/',
+                        'icon': 'fa fa-music',
+                        'order': 1,
+                        'perm': 'auth.view_user',
+                        'title': u'事业动态'
+                    }
+                ],
+                'first_icon': 'fa fa-music',
+                'first_url': u'/backend/xadmin/BandWeb/businessdynamics/',
+                'title': u'事业动态'
             }
         ]
 
@@ -138,6 +208,17 @@ class MusicaleAdmin(RichTextAdmin):
             Fieldset('中文信息', 'title_cn', 'update', 'content_cn'),
             Fieldset('英文信息', 'title_en', 'update', 'content_en'),
         ),
+    )
+
+
+class BannerAdmin(object):
+    list_display = ('title_cn', 'title_en', 'order')
+    form_layout = (
+        Main(
+            Fieldset('图片与顺序', 'img', 'order'),
+            Fieldset('中文题目', 'title_cn', 'subtitle_cn'),
+            Fieldset('英文题目', 'title_en', 'subtitle_en')
+        )
     )
 
 
@@ -203,9 +284,63 @@ class PerformerAdmin(RichTextAdmin):
         )
     )
 
+
+class BeautyMelodyIntroAdmin(RichTextAdmin):
+    form_layout = (
+        Main(
+            Fieldset('展示图', 'img'),
+            Fieldset('中文介绍', 'detail_cn'),
+            Fieldset('英文介绍', 'detail_en')
+        )
+    )
+
+
+class BeautyMelodyNewsAdmin(RichTextAdmin):
+    list_display = ('title_cn', 'title_en', 'publish_time')
+    form_layout = (
+        Main(
+            Fieldset('缩略图', 'img'),
+            Fieldset('中文信息', 'title_cn', 'detail_cn'),
+            Fieldset('英文信息', 'title_en', 'detail_en')
+        )
+    )
+
+
+class OperaIntroAdmin(RichTextAdmin):
+    form_layout = (
+        Main(
+            Fieldset('展示图', 'img'),
+            Fieldset('中文介绍', 'detail_cn'),
+            Fieldset('英文介绍', 'detail_en')
+        )
+    )
+
+
+class OperaNewsAdmin(RichTextAdmin):
+    list_display = ('title_cn', 'title_en', 'publish_time')
+    form_layout = (
+        Main(
+            Fieldset('缩略图', 'img'),
+            Fieldset('中文信息', 'title_cn', 'detail_cn'),
+            Fieldset('英文信息', 'title_en', 'detail_en')
+        )
+    )
+
+
+class BusinessDynamicsAdmin(RichTextAdmin):
+    list_display = ('title_cn', 'title_en', 'publish_time')
+    form_layout = (
+        Main(
+            Fieldset('缩略图', 'img'),
+            Fieldset('中文信息', 'title_cn', 'detail_cn'),
+            Fieldset('英文信息', 'title_en', 'detail_en')
+        )
+    )
+
 xadmin.site.register(CommAdminView, GlobalSetting)
 xadmin.site.register(BaseAdminView, BaseSetting)
 xadmin.site.register(Musicale, MusicaleAdmin)
+xadmin.site.register(Banner, BannerAdmin)
 xadmin.site.register(YueTuanIntro, YueTuanIntroAdmin)
 xadmin.site.register(YueTuanLeader, YueTuanLeaderAdmin)
 xadmin.site.register(PresidentAddress, PresidentAddressAdmin)
@@ -213,3 +348,8 @@ xadmin.site.register(Conductor, ConductorAdmin)
 xadmin.site.register(Director, DirectorAdmin)
 xadmin.site.register(InstrumentType)
 xadmin.site.register(Performer, PerformerAdmin)
+xadmin.site.register(BeautyMelodyIntro, BeautyMelodyIntroAdmin)
+xadmin.site.register(BeautyMelodyNews, BeautyMelodyNewsAdmin)
+xadmin.site.register(OperaIntro, OperaIntroAdmin)
+xadmin.site.register(OperaNews, OperaNewsAdmin)
+xadmin.site.register(BusinessDynamics, BusinessDynamicsAdmin)

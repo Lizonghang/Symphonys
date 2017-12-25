@@ -1,9 +1,8 @@
 # coding=utf-8
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST, require_GET
-from django.core.exceptions import ObjectDoesNotExist
 from models import *
-import json
+import math
 import utils
 
 
@@ -14,6 +13,14 @@ def upload_media(request):
     manager = utils.UploadMediaManager()
     media_url = manager.save(media_type, media_data)
     return JsonResponse({'error': 0, 'url': media_url})
+
+
+@require_GET
+def get_banner(request, lang):
+    content = []
+    for obj in Banner.objects.order_by('order'):
+        content.append(obj.get_abstract(lang))
+    return JsonResponse({'error': 0, 'body': content})
 
 
 @require_GET
@@ -85,5 +92,68 @@ def get_performer_list(request, lang, instrument_id):
 @require_GET
 def get_performer_detail(request, lang, id):
     obj = Performer.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_beautymelody_intro(request, lang, verbose):
+    obj = BeautyMelodyIntro.objects.first()
+    content = obj.get_abstract(lang, verbose)
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_beautymelody_news_list(request, lang, page):
+    content = {'news': []}
+    for obj in BeautyMelodyNews.objects.order_by('-id')[(page-1)*5:page*5]:
+        content['news'].append(obj.get_abstract(lang, 'abstract'))
+    content['max_page'] = int(math.ceil(BeautyMelodyNews.objects.count()/5.0))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_beautymelody_news_detail(request, lang, id):
+    obj = BeautyMelodyNews.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_opera_intro(request, lang, verbose):
+    obj = OperaIntro.objects.first()
+    content = obj.get_abstract(lang, verbose)
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_opera_news_list(request, lang, page):
+    content = {'news': []}
+    for obj in OperaNews.objects.order_by('-id')[(page-1)*5:page*5]:
+        content['news'].append(obj.get_abstract(lang, 'abstract'))
+    content['max_page'] = int(math.ceil(OperaNews.objects.count()/5.0))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_opera_news_detail(request, lang, id):
+    obj = OperaNews.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_businessdynamics_news_list(request, lang, page, order):
+    content = {'news': []}
+    order_map = {'sequence': 'id', 'reverse': '-id'}
+    for obj in BusinessDynamics.objects.order_by(order_map[order])[(page-1)*5:page*5]:
+        content['news'].append(obj.get_abstract(lang, 'abstract'))
+    content['max_page'] = int(math.ceil(BusinessDynamics.objects.count()/5.0))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_businessdynamics_news_detail(request, lang, id):
+    obj = BusinessDynamics.objects.get(id=id)
     content = obj.get_abstract(lang, 'detail')
     return JsonResponse({'error': 0, 'body': content})

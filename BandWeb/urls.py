@@ -16,6 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 import views
 
+home = [
+    url(r'^banner/(?P<lang>[ce]n)/list/$', views.get_banner)
+]
+
 intro = [
     url(r'^abstract/(?P<lang>[ce]n)/$', views.get_intro),
     url(r'^leader/(?P<lang>[ce]n)/list/$', views.get_leader_list),
@@ -28,7 +32,28 @@ intro = [
     url(r'^performer/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_performer_detail)
 ]
 
+beautymelody = [
+    url(r'^intro/(?P<lang>[ce]n)/(?P<verbose>[abstrcdeil]+)/$', views.get_beautymelody_intro),
+    url(r'^news/(?P<lang>[ce]n)/list/(?P<page>[0-9]+)/$', views.get_beautymelody_news_list),
+    url(r'^news/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_beautymelody_news_detail)
+]
+
+opera = [
+    url(r'^intro/(?P<lang>[ce]n)/(?P<verbose>[abstrcdeil]+)/$', views.get_opera_intro),
+    url(r'^news/(?P<lang>[ce]n)/list/(?P<page>[0-9]+)/$', views.get_opera_news_list),
+    url(r'^news/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_opera_news_detail)
+]
+
+businessdynamics = [
+    url(r'^news/(?P<lang>[ce]n)/list/(?P<order>[sequncrv]+)/(?P<page>[0-9]+)/$', views.get_businessdynamics_news_list),
+    url(r'^news/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_businessdynamics_news_detail)
+]
+
 urlpatterns = [
     url(r'^richtext/media/upload/$', views.upload_media),
-    url(r'^intro/', include(intro))
+    url(r'^home/', include(home)),
+    url(r'^intro/', include(intro)),
+    url(r'^beautymelody/', include(beautymelody)),
+    url(r'^opera/', include(opera)),
+    url(r'^businessdynamics/', include(businessdynamics))
 ]

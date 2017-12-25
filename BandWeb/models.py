@@ -21,6 +21,38 @@ class Musicale(models.Model):
         verbose_name_plural = verbose_name
 
 
+class Banner(models.Model):
+    img = models.ImageField(u"图片", upload_to='image', default=None)
+    order = models.IntegerField(u"顺序", default=100)
+    title_cn = models.CharField(u"主标题(中文)", max_length=100, default='')
+    subtitle_cn = models.CharField(u"副标题(中文)", max_length=100, default='')
+    title_en = models.CharField(u"主标题(英文)", max_length=100, default='')
+    subtitle_en = models.CharField(u"副标题(英文)", max_length=100, default='')
+
+    def get_abstract(self, lang):
+        content = {
+            'img': "{proto}://{domain}{path}".format(
+                proto=config.PROTOCOL,
+                domain=config.DOMAIN,
+                path=self.img.url),
+            'order': self.order
+        }
+        if lang == 'cn':
+            content['title'] = self.title_cn
+            content['subtitle'] = self.subtitle_cn
+        else:
+            content['title'] = self.title_en
+            content['subtitle'] = self.subtitle_en
+        return content
+
+    def __str__(self):
+        return self.title_cn
+
+    class Meta:
+        verbose_name = u'轮播图'
+        verbose_name_plural = verbose_name
+
+
 class YueTuanIntro(models.Model):
     content_cn = models.TextField(u"乐团介绍(中文)", default='')
     content_en = models.TextField(u"乐团介绍(英文)", default='')
@@ -251,4 +283,196 @@ class Performer(models.Model):
 
     class Meta:
         verbose_name = u'乐团成员'
+        verbose_name_plural = verbose_name
+
+
+class BeautyMelodyIntro(models.Model):
+    img = models.ImageField(u"天姿国乐展示图")
+    detail_cn = models.TextField(u"天姿国乐介绍(中文)")
+    detail_en = models.TextField(u"天姿国乐介绍(英文)")
+
+    def get_abstract(self, lang, verbose):
+        intro = {
+            'img': "{proto}://{domain}{path}".format(
+                proto=config.PROTOCOL,
+                domain=config.DOMAIN,
+                path=self.img.url
+            )
+        }
+        if lang == 'cn' and verbose == 'abstract':
+            intro['detail'] = None
+        elif lang == 'en' and verbose == 'abstract':
+            intro['detail'] = None
+        elif lang == 'cn' and verbose == 'detail':
+            intro['detail'] = self.detail_cn
+        else:
+            intro['detail'] = self.detail_en
+        return intro
+
+    def save(self, *args, **kwargs):
+        nb = BeautyMelodyIntro.objects.count()
+        if nb == 0 or (nb == 1 and self.id):
+            super(BeautyMelodyIntro, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return u'天姿国乐介绍'
+
+    class Meta:
+        verbose_name = u'天姿国乐介绍'
+        verbose_name_plural = verbose_name
+
+
+class BeautyMelodyNews(models.Model):
+    img = models.ImageField(u"缩略图", upload_to='image', default='')
+    publish_time = models.DateTimeField(u"发布日期", auto_now=True)
+    title_cn = models.CharField(u"文章标题(中文)", max_length=50, default='')
+    detail_cn = models.TextField(u"文章内容(中文)", default='')
+    title_en = models.CharField(u"文章标题(英文)", max_length=50, default='')
+    detail_en = models.TextField(u"文章内容(英文)", default='')
+
+    def get_abstract(self, lang, verbose):
+        content = {
+            'id': self.id,
+            'img': "{proto}://{domain}{path}".format(
+                proto=config.PROTOCOL,
+                domain=config.DOMAIN,
+                path=self.img.url
+            ),
+            'date': self.publish_time.strftime('%Y-%m-%d')
+        }
+        if lang == 'cn':
+            content['title'] = self.title_cn
+            if verbose == 'abstract':
+                content['detail'] = None
+            else:
+                content['detail'] = self.detail_cn
+        else:
+            content['title'] = self.title_en
+            if verbose == 'abstract':
+                content['detail'] = None
+            else:
+                content['detail'] = self.detail_en
+        return content
+
+    def __str__(self):
+        return self.title_cn
+
+    class Meta:
+        verbose_name = u'国乐新闻'
+        verbose_name_plural = verbose_name
+
+
+class OperaIntro(models.Model):
+    img = models.ImageField(u"歌剧院展示图")
+    detail_cn = models.TextField(u"歌剧院介绍(中文)")
+    detail_en = models.TextField(u"歌剧院介绍(英文)")
+
+    def get_abstract(self, lang, verbose):
+        intro = {
+            'img': "{proto}://{domain}{path}".format(
+                proto=config.PROTOCOL,
+                domain=config.DOMAIN,
+                path=self.img.url
+            )
+        }
+        if lang == 'cn' and verbose == 'abstract':
+            intro['detail'] = None
+        elif lang == 'en' and verbose == 'abstract':
+            intro['detail'] = None
+        elif lang == 'cn' and verbose == 'detail':
+            intro['detail'] = self.detail_cn
+        else:
+            intro['detail'] = self.detail_en
+        return intro
+
+    def save(self, *args, **kwargs):
+        nb = OperaIntro.objects.count()
+        if nb == 0 or (nb == 1 and self.id):
+            super(OperaIntro, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return u'歌剧院介绍'
+
+    class Meta:
+        verbose_name = u'歌剧院介绍'
+        verbose_name_plural = verbose_name
+
+
+class OperaNews(models.Model):
+    img = models.ImageField(u"缩略图", upload_to='image', default='')
+    publish_time = models.DateTimeField(u"发布日期", auto_now=True)
+    title_cn = models.CharField(u"文章标题(中文)", max_length=50, default='')
+    detail_cn = models.TextField(u"文章内容(中文)", default='')
+    title_en = models.CharField(u"文章标题(英文)", max_length=50, default='')
+    detail_en = models.TextField(u"文章内容(英文)", default='')
+
+    def get_abstract(self, lang, verbose):
+        content = {
+            'id': self.id,
+            'img': "{proto}://{domain}{path}".format(
+                proto=config.PROTOCOL,
+                domain=config.DOMAIN,
+                path=self.img.url
+            ),
+            'date': self.publish_time.strftime('%Y-%m-%d')
+        }
+        if lang == 'cn':
+            content['title'] = self.title_cn
+            if verbose == 'abstract':
+                content['detail'] = None
+            else:
+                content['detail'] = self.detail_cn
+        else:
+            content['title'] = self.title_en
+            if verbose == 'abstract':
+                content['detail'] = None
+            else:
+                content['detail'] = self.detail_en
+        return content
+
+    def __str__(self):
+        return self.title_cn
+
+    class Meta:
+        verbose_name = u'歌剧院新闻'
+        verbose_name_plural = verbose_name
+
+
+class BusinessDynamics(models.Model):
+    img = models.ImageField(u"缩略图", upload_to='image', default='')
+    publish_time = models.DateTimeField(u"发布日期", auto_now=True)
+    title_cn = models.CharField(u"文章标题(中文)", max_length=50, default='')
+    detail_cn = models.TextField(u"文章内容(中文)", default='')
+    title_en = models.CharField(u"文章标题(英文)", max_length=50, default='')
+    detail_en = models.TextField(u"文章内容(英文)", default='')
+
+    def get_abstract(self, lang, verbose):
+        content = {
+            'id': self.id,
+            'img': "{proto}://{domain}{path}".format(
+                proto=config.PROTOCOL,
+                domain=config.DOMAIN,
+                path=self.img.url
+            ),
+            'date': self.publish_time.strftime('%Y-%m-%d')
+        }
+        if lang == 'cn':
+            content['title'] = self.title_cn
+            if verbose == 'abstract':
+                content['detail'] = None
+            else:
+                content['detail'] = self.detail_cn
+        else:
+            content['title'] = self.title_en
+            if verbose == 'abstract':
+                content['detail'] = None
+            else:
+                content['detail'] = self.detail_en
+        return content
+
+    def __str__(self):
+        return self.title_cn
+
+    class Meta:
+        verbose_name = u'事业动态'
         verbose_name_plural = verbose_name
