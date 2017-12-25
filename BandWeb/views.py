@@ -8,9 +8,6 @@ from django.core.paginator import Paginator
 from BandWeb.models import *
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.core import serializers
 
 
 @require_POST
@@ -23,7 +20,7 @@ def upload_media(request):
 
 
 @require_GET
-def view_musicale_list(request):
+def view_musicale_list(request, lang):
     musicale_list = Musicale.objects.all()
     paginator = Paginator(musicale_list, 6)
     page = request.GET.get('page')
@@ -33,9 +30,9 @@ def view_musicale_list(request):
         musicale_list = paginator.page(1)
     except EmptyPage:
         musicale_list = paginator.page(paginator.num_pages)
-    content = {
-        'musicale_list': musicale_list,
-    }
+    content = []
+    for obj in musicale_list:
+        content.append(obj.get_abstract(lang, 'abstract'))
     return JsonResponse({'error': 0, 'body': content})
 
 

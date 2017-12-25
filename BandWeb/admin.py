@@ -95,11 +95,18 @@ class GlobalSetting(object):
                         'order': 1,
                         'perm': 'auth.view_user',
                         'title': u'音乐会'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/musicfestival/',
+                        'icon': 'fa fa-music',
+                        'order': 2,
+                        'perm': 'auth.view_user',
+                        'title': u'乐季'
                     }
                 ],
                 'first_icon': 'fa fa-music',
                 'first_url': u'/backend/xadmin/BandWeb/musicale/',
-                'title': u'网站管理'
+                'title': u'音乐会'
             }
         ]
 
@@ -135,6 +142,7 @@ class MusicaleAdmin(RichTextAdmin):
     list_editable = ('title_cn', 'title_en')
     form_layout = (
         Main(
+            Fieldset('图片', 'img'),
             Fieldset('中文信息', 'title_cn', 'update', 'content_cn'),
             Fieldset('英文信息', 'title_en', 'update', 'content_en'),
         ),
