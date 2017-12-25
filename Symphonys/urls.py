@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 import xadmin
-import settings
+import Symphonys.settings
+from django import views
+
 xadmin.autodiscover()
 
 urlpatterns = [
     url(r'^backend/xadmin/', include(xadmin.site.urls)),
     url(r'^api/', include('BandWeb.urls')),
-    url(r'^assets/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    url(r'^assets/(?P<path>.*)$', views.static.serve, {'document_root': Symphonys.settings.STATIC_ROOT}),
 ]

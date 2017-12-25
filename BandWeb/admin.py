@@ -1,7 +1,7 @@
 # encoding: utf-8
 from xadmin.views import CommAdminView, BaseAdminView
 from xadmin.layout import Main, Fieldset
-from models import *
+from BandWeb.models import *
 import xadmin
 
 
@@ -34,16 +34,79 @@ class GlobalSetting(object):
             {
                 'menus': [
                     {
+                        'url': u'/backend/xadmin/BandWeb/yuetuanintro/',
+                        'icon': 'fa fa-music',
+                        'order': 1,
+                        'perm': 'auth.view_user',
+                        'title': u'乐团介绍'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/yuetuanleader/',
+                        'icon': 'fa fa-music',
+                        'order': 2,
+                        'perm': 'auth.view_user',
+                        'title': u'乐团团长'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/presidentaddress/',
+                        'icon': 'fa fa-music',
+                        'order': 3,
+                        'perm': 'auth.view_user',
+                        'title': u'团长致辞'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/conductor/',
+                        'icon': 'fa fa-music',
+                        'order': 4,
+                        'perm': 'auth.view_user',
+                        'title': u'驻团指挥'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/director/',
+                        'icon': 'fa fa-music',
+                        'order': 5,
+                        'perm': 'auth.view_user',
+                        'title': u'艺术总监'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/instrumenttype/',
+                        'icon': 'fa fa-music',
+                        'order': 6,
+                        'perm': 'auth.view_user',
+                        'title': u'乐器种类'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/performer/',
+                        'icon': 'fa fa-music',
+                        'order': 7,
+                        'perm': 'auth.view_user',
+                        'title': u'乐团成员'
+                    }
+                ],
+                'first_icon': 'fa fa-music',
+                'first_url': u'/backend/xadmin/BandWeb/yuetuanintro/',
+                'title': u'乐团介绍'
+            },
+            {
+                'menus': [
+                    {
                         'url': u'/backend/xadmin/BandWeb/musicale/',
                         'icon': 'fa fa-music',
                         'order': 1,
                         'perm': 'auth.view_user',
                         'title': u'音乐会'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/musicfestival/',
+                        'icon': 'fa fa-music',
+                        'order': 2,
+                        'perm': 'auth.view_user',
+                        'title': u'乐季'
                     }
                 ],
                 'first_icon': 'fa fa-music',
                 'first_url': u'/backend/xadmin/BandWeb/musicale/',
-                'title': u'网站管理'
+                'title': u'音乐会'
             }
         ]
 
@@ -79,12 +142,82 @@ class MusicaleAdmin(RichTextAdmin):
     list_editable = ('title_cn', 'title_en')
     form_layout = (
         Main(
-            Fieldset('中文版', 'title_cn', 'update', 'content_cn'),
-            Fieldset('英文版', 'title_en', 'update', 'content_en'),
+            Fieldset('图片', 'img'),
+            Fieldset('中文信息', 'title_cn', 'update', 'content_cn'),
+            Fieldset('英文信息', 'title_en', 'update', 'content_en'),
         ),
     )
 
 
+class YueTuanIntroAdmin(RichTextAdmin):
+    form_layout = (
+        Main(
+            Fieldset('中文介绍', 'content_cn'),
+            Fieldset('英文介绍', 'content_en'),
+        ),
+    )
+
+
+class YueTuanLeaderAdmin(object):
+    list_display = ('president_name_cn', 'president_name_en', 'president_type')
+    form_layout = (
+        Main(
+            Fieldset('基本信息', 'president_img', 'president_type'),
+            Fieldset('中文信息', 'president_name_cn', 'president_intro_cn', 'president_detail_cn'),
+            Fieldset('英文信息', 'president_name_en', 'president_intro_en', 'president_detail_en')
+        ),
+    )
+
+
+class PresidentAddressAdmin(RichTextAdmin):
+    form_layout = (
+        Main(
+            Fieldset('中文致辞', 'address_cn'),
+            Fieldset('英文致辞', 'address_en')
+        ),
+    )
+
+
+class ConductorAdmin(RichTextAdmin):
+    list_display = ('name_cn', 'name_en', 'intro_cn', 'intro_en')
+    form_layout = (
+        Main(
+            Fieldset('头像', 'img'),
+            Fieldset('中文信息', 'name_cn', 'intro_cn', 'detail_cn'),
+            Fieldset('英文信息', 'name_en', 'intro_en', 'detail_en')
+        )
+    )
+
+
+class DirectorAdmin(RichTextAdmin):
+    list_display = ('name_cn', 'name_en', 'intro_cn', 'intro_en')
+    form_layout = (
+        Main(
+            Fieldset('头像', 'img'),
+            Fieldset('中文信息', 'name_cn', 'intro_cn', 'detail_cn'),
+            Fieldset('英文信息', 'name_en', 'intro_en', 'detail_en')
+        )
+    )
+
+
+class PerformerAdmin(RichTextAdmin):
+    list_display = ('name_cn', 'name_en', 'instrument_type__name_cn')
+    list_filter = ('instrument_type__name_cn',)
+    form_layout = (
+        Main(
+            Fieldset('头像', 'img'),
+            Fieldset('中文信息', 'name_cn', 'detail_cn', 'instrument_type'),
+            Fieldset('英文信息', 'name_en', 'detail_en')
+        )
+    )
+
 xadmin.site.register(CommAdminView, GlobalSetting)
 xadmin.site.register(BaseAdminView, BaseSetting)
 xadmin.site.register(Musicale, MusicaleAdmin)
+xadmin.site.register(YueTuanIntro, YueTuanIntroAdmin)
+xadmin.site.register(YueTuanLeader, YueTuanLeaderAdmin)
+xadmin.site.register(PresidentAddress, PresidentAddressAdmin)
+xadmin.site.register(Conductor, ConductorAdmin)
+xadmin.site.register(Director, DirectorAdmin)
+xadmin.site.register(InstrumentType)
+xadmin.site.register(Performer, PerformerAdmin)

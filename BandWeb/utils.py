@@ -2,7 +2,7 @@
 from Symphonys import settings
 from datetime import datetime
 import os
-import config
+import BandWeb.config as config
 
 
 class UploadMediaManager:
