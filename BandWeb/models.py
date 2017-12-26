@@ -54,7 +54,7 @@ class Musicale(models.Model):
 
 
 class Banner(models.Model):
-    img = models.ImageField(u"图片", upload_to='image', default=None, storage=ImageStorage())
+    img = models.ImageField(u"轮播图", upload_to='image', default=None, storage=ImageStorage())
     order = models.IntegerField(u"顺序", default=100)
     title_cn = models.CharField(u"主标题(中文)", max_length=100, default='')
     subtitle_cn = models.CharField(u"副标题(中文)", max_length=100, default='')
@@ -76,6 +76,27 @@ class Banner(models.Model):
             content['title'] = self.title_en
             content['subtitle'] = self.subtitle_en
         return content
+
+    def show_img(self):
+        return u'<center><img src="%s" style="height: 100px"/></center>' % self.img.url
+
+    def show_title_cn(self):
+        return u'<center><p style="line-height:100px">%s</p></center>' % self.title_cn
+
+    def show_title_en(self):
+        return u'<center><p style="line-height:100px">%s</p></center>' % self.title_en
+
+    def show_order(self):
+        return u'<center><p style="line-height:100px">%s</p></center>' % self.order
+
+    show_img.allow_tags = True
+    show_title_cn.allow_tags = True
+    show_title_en.allow_tags = True
+    show_order.allow_tags = True
+    show_img.short_description = u"<center>%s</center>" % u"轮播图"
+    show_order.short_description = u"<center>%s</center>" % u"顺序"
+    show_title_cn.short_description = u"<center>%s</center>" % u"主标题(中文)"
+    show_title_en.short_description = u"<center>%s</center>" % u"主标题(英文)"
 
     def __str__(self):
         return self.title_cn

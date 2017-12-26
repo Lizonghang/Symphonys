@@ -220,7 +220,7 @@ class MusicaleAdmin(RichTextAdmin):
 
 
 class BannerAdmin(object):
-    list_display = ('title_cn', 'title_en', 'order')
+    list_display = ('show_img', 'show_title_cn', 'show_title_en', 'show_order')
     form_layout = (
         Main(
             Fieldset('图片与顺序', 'img', 'order'),
