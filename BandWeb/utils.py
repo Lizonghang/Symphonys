@@ -1,6 +1,7 @@
 # coding=utf-8
 from Symphonys import settings
 import os
+import re
 import time
 import config
 import random
@@ -23,5 +24,14 @@ class UploadMediaManager:
         )
 
 
-def clip_text(raw_text, keep_n):
-    return raw_text + '...'
+def clip_text(raw_text, keep_n=50, lang='cn'):
+    raw_intro = re.sub(u'&nbsp;', '', raw_text)
+    raw_intro = re.sub(u'&emsp;', '', raw_intro)
+    raw_intro = re.sub(u'<.*?>', '', raw_intro)
+    raw_intro = re.sub(u'[\r\n\t]', '', raw_intro)
+    if len(raw_intro) < keep_n:
+        return raw_intro
+    if lang == 'en':
+        while raw_intro[keep_n].isalpha():
+            keep_n += 1
+    return raw_intro[:keep_n] + '...'

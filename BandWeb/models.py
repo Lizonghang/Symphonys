@@ -3,10 +3,16 @@ import config
 import utils
 from django.db import models
 from storage import ImageStorage
+from datetime import datetime
+from django.utils.timezone import utc
+
+
+def default_time_now():
+    return datetime.utcnow().replace(tzinfo=utc)
 
 
 class Musicale(models.Model):
-    update = models.DateTimeField(u"发布时间", auto_now=True)
+    publish_time = models.DateField(u"发布日期", default=default_time_now)
     title_cn = models.CharField(u"中文标题", max_length=100, unique=True, default='')
     content_cn = models.TextField(u"中文内容", default='')
     title_en = models.CharField(u"英文标题", max_length=100, unique=True, default='')
@@ -23,7 +29,7 @@ class Musicale(models.Model):
                     path=self.img.url,
                 ),
                 'title': self.title_cn,
-                'update': self.update,
+                'date': self.publish_time.strftime('%Y年%m月%d日')
             }
             if verbose == 'detail':
                 intro['content'] = self.content_cn
@@ -37,7 +43,7 @@ class Musicale(models.Model):
                     path=self.img.url,
                 ),
                 'title': self.title_en,
-                'update': self.update,
+                'date': self.publish_time.strftime('%Y-%m-%d')
             }
             if verbose == 'detail':
                 intro['content'] = self.content_en
@@ -379,7 +385,7 @@ class BeautyMelodyIntro(models.Model):
 
 class BeautyMelodyNews(models.Model):
     img = models.ImageField(u"缩略图", upload_to='image', default='', storage=ImageStorage())
-    publish_time = models.DateTimeField(u"发布日期", auto_now=True)
+    publish_time = models.DateField(u"发布日期", default=default_time_now)
     title_cn = models.CharField(u"文章标题(中文)", max_length=50, default='')
     detail_cn = models.TextField(u"文章内容(中文)", default='')
     title_en = models.CharField(u"文章标题(英文)", max_length=50, default='')
@@ -392,19 +398,20 @@ class BeautyMelodyNews(models.Model):
                 proto=config.PROTOCOL,
                 domain=config.DOMAIN,
                 path=self.img.url
-            ),
-            'date': self.publish_time.strftime('%Y-%m-%d')
+            )
         }
         if lang == 'cn':
             content['title'] = self.title_cn
+            content['date'] = self.publish_time.strftime('%Y年%m月%d日')
             if verbose == 'abstract':
-                content['abstract'] = None
+                content['abstract'] = utils.clip_text(self.detail_cn, keep_n=50, lang='cn')
             else:
                 content['detail'] = self.detail_cn
         else:
             content['title'] = self.title_en
+            content['date'] = self.publish_time.strftime('%Y-%m-%d')
             if verbose == 'abstract':
-                content['abstract'] = None
+                content['abstract'] = utils.clip_text(self.detail_en, keep_n=100, lang='en')
             else:
                 content['detail'] = self.detail_en
         return content
@@ -456,7 +463,7 @@ class OperaIntro(models.Model):
 
 class OperaNews(models.Model):
     img = models.ImageField(u"缩略图", upload_to='image', default='', storage=ImageStorage())
-    publish_time = models.DateTimeField(u"发布日期", auto_now=True)
+    publish_time = models.DateField(u"发布日期", default=default_time_now)
     title_cn = models.CharField(u"文章标题(中文)", max_length=50, default='')
     detail_cn = models.TextField(u"文章内容(中文)", default='')
     title_en = models.CharField(u"文章标题(英文)", max_length=50, default='')
@@ -469,19 +476,20 @@ class OperaNews(models.Model):
                 proto=config.PROTOCOL,
                 domain=config.DOMAIN,
                 path=self.img.url
-            ),
-            'date': self.publish_time.strftime('%Y-%m-%d')
+            )
         }
         if lang == 'cn':
             content['title'] = self.title_cn
+            content['date'] = self.publish_time.strftime('%Y年%m月%d日')
             if verbose == 'abstract':
-                content['abstract'] = None
+                content['abstract'] = utils.clip_text(self.detail_cn, keep_n=50, lang='cn')
             else:
                 content['detail'] = self.detail_cn
         else:
             content['title'] = self.title_en
+            content['date'] = self.publish_time.strftime('%Y-%m-%d')
             if verbose == 'abstract':
-                content['abstract'] = None
+                content['abstract'] = utils.clip_text(self.detail_en, keep_n=100, lang='en')
             else:
                 content['detail'] = self.detail_en
         return content
@@ -496,7 +504,7 @@ class OperaNews(models.Model):
 
 class BusinessDynamics(models.Model):
     img = models.ImageField(u"缩略图", upload_to='image', default='', storage=ImageStorage())
-    publish_time = models.DateTimeField(u"发布日期", auto_now=True)
+    publish_time = models.DateField(u"发布日期", default=default_time_now)
     title_cn = models.CharField(u"文章标题(中文)", max_length=50, default='')
     detail_cn = models.TextField(u"文章内容(中文)", default='')
     title_en = models.CharField(u"文章标题(英文)", max_length=50, default='')
@@ -509,19 +517,20 @@ class BusinessDynamics(models.Model):
                 proto=config.PROTOCOL,
                 domain=config.DOMAIN,
                 path=self.img.url
-            ),
-            'date': self.publish_time.strftime('%Y-%m-%d')
+            )
         }
         if lang == 'cn':
             content['title'] = self.title_cn
+            content['date'] = self.publish_time.strftime('%Y年%m月%d日')
             if verbose == 'abstract':
-                content['abstract'] = None
+                content['abstract'] = utils.clip_text(self.detail_cn, keep_n=50, lang='cn')
             else:
                 content['detail'] = self.detail_cn
         else:
             content['title'] = self.title_en
+            content['date'] = self.publish_time.strftime('%Y-%m-%d')
             if verbose == 'abstract':
-                content['abstract'] = None
+                content['abstract'] = utils.clip_text(self.detail_en, keep_n=100, lang='en')
             else:
                 content['detail'] = self.detail_en
         return content

@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for Symphonys project.
 
@@ -98,8 +99,8 @@ TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
 
 USE_L10N = False
-DATETIME_FORMAT = 'Y-m-d H:i:s'
-DATE_FORMAT = 'Y-m-d'
+DATETIME_FORMAT = 'Y年m月d日 H时i分s秒'
+DATE_FORMAT = 'Y年m月d日'
 
 USE_TZ = True
 

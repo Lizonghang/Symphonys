@@ -178,15 +178,15 @@ class RichTextAdmin(object):
 
 
 class MusicaleAdmin(RichTextAdmin):
-    list_display = ('title_cn', 'title_en', 'update')
-    list_filter = ('title_cn', 'title_en', 'update')
-    search_fields = ('title_cn', 'title_en', 'update')
+    list_display = ('title_cn', 'title_en', 'publish_time')
+    list_filter = ('title_cn', 'title_en', 'publish_time')
+    search_fields = ('title_cn', 'title_en', 'publish_time')
     list_editable = ('title_cn', 'title_en')
     form_layout = (
         Main(
-            Fieldset('图片', 'img'),
-            Fieldset('中文信息', 'title_cn', 'update', 'content_cn'),
-            Fieldset('英文信息', 'title_en', 'update', 'content_en'),
+            Fieldset('图片与日期', 'img', 'publish_time'),
+            Fieldset('中文信息', 'title_cn', 'content_cn'),
+            Fieldset('英文信息', 'title_en', 'content_en'),
         ),
     )
 
@@ -280,7 +280,7 @@ class BeautyMelodyNewsAdmin(RichTextAdmin):
     list_display = ('title_cn', 'title_en', 'publish_time')
     form_layout = (
         Main(
-            Fieldset('缩略图', 'img'),
+            Fieldset('图片与日期', 'img', 'publish_time'),
             Fieldset('中文信息', 'title_cn', 'detail_cn'),
             Fieldset('英文信息', 'title_en', 'detail_en')
         )
@@ -302,7 +302,7 @@ class OperaNewsAdmin(RichTextAdmin):
     list_display = ('title_cn', 'title_en', 'publish_time')
     form_layout = (
         Main(
-            Fieldset('缩略图', 'img'),
+            Fieldset('图片与日期', 'img', 'publish_time'),
             Fieldset('中文信息', 'title_cn', 'detail_cn'),
             Fieldset('英文信息', 'title_en', 'detail_en')
         )
@@ -313,7 +313,7 @@ class BusinessDynamicsAdmin(RichTextAdmin):
     list_display = ('title_cn', 'title_en', 'publish_time')
     form_layout = (
         Main(
-            Fieldset('缩略图', 'img'),
+            Fieldset('图片与日期', 'img', 'publish_time'),
             Fieldset('中文信息', 'title_cn', 'detail_cn'),
             Fieldset('英文信息', 'title_en', 'detail_en')
         )
