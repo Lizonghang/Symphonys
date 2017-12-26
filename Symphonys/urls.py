@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from Symphonys import settings
+from BandWeb.views import request404_error, request500_error
 import xadmin
 import django
 
 xadmin.autodiscover()
+
+handler500 = request500_error
+handler404 = request404_error
 
 urlpatterns = [
     url(r'^backend/xadmin/', include(xadmin.site.urls)),

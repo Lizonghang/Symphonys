@@ -179,3 +179,11 @@ def get_businessdynamics_news_detail(request, lang, id):
     obj = BusinessDynamics.objects.get(id=id)
     content = obj.get_abstract(lang, 'detail')
     return JsonResponse({'error': 0, 'body': content})
+
+
+def request500_error(request):
+    return JsonResponse({'error': 1, 'code': 500, 'msg': 'Invalid Operation'})
+
+
+def request404_error(request):
+    return JsonResponse({'error': 1, 'code': 404, 'msg': 'Invalid Path'})
