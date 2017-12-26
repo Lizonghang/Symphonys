@@ -1,5 +1,6 @@
 # coding=utf-8
 import config
+import utils
 from django.db import models
 from storage import ImageStorage
 
@@ -338,7 +339,7 @@ class Performer(models.Model):
         verbose_name = u'乐团成员'
         verbose_name_plural = verbose_name
 
-
+"""
 class BeautyMelodyIntro(models.Model):
     img = models.ImageField(u"天姿国乐展示图", upload_to='image', default=None, storage=ImageStorage())
     detail_cn = models.TextField(u"天姿国乐介绍(中文)", default='')
@@ -353,9 +354,9 @@ class BeautyMelodyIntro(models.Model):
             )
         }
         if lang == 'cn' and verbose == 'abstract':
-            intro['detail'] = None
+            intro['abstract'] = None
         elif lang == 'en' and verbose == 'abstract':
-            intro['detail'] = None
+            intro['abstract'] = None
         elif lang == 'cn' and verbose == 'detail':
             intro['detail'] = self.detail_cn
         else:
@@ -373,6 +374,7 @@ class BeautyMelodyIntro(models.Model):
     class Meta:
         verbose_name = u'天姿国乐介绍'
         verbose_name_plural = verbose_name
+"""
 
 
 class BeautyMelodyNews(models.Model):
@@ -414,7 +416,7 @@ class BeautyMelodyNews(models.Model):
         verbose_name = u'国乐新闻'
         verbose_name_plural = verbose_name
 
-
+"""
 class OperaIntro(models.Model):
     img = models.ImageField(u"歌剧院展示图", upload_to='image', default=None, storage=ImageStorage())
     detail_cn = models.TextField(u"歌剧院介绍(中文)", default='')
@@ -449,6 +451,7 @@ class OperaIntro(models.Model):
     class Meta:
         verbose_name = u'歌剧院介绍'
         verbose_name_plural = verbose_name
+"""
 
 
 class OperaNews(models.Model):

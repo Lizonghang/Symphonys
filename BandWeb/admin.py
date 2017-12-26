@@ -125,47 +125,19 @@ class GlobalSetting(object):
             {
                 'menus': [
                     {
-                        'url': u'/backend/xadmin/BandWeb/beautymelodyintro/',
-                        'icon': 'fa fa-music',
-                        'order': 1,
-                        'perm': 'auth.view_user',
-                        'title': u'介绍'
-                    },
-                    {
                         'url': u'/backend/xadmin/BandWeb/beautymelodynews/',
                         'icon': 'fa fa-music',
-                        'order': 2,
-                        'perm': 'auth.view_user',
-                        'title': u'新闻'
-                    }
-                ],
-                'first_icon': 'fa fa-music',
-                'first_url': u'/backend/xadmin/BandWeb/beautymelodyintro/',
-                'title': u'天姿国乐'
-            },
-            {
-                'menus': [
-                    {
-                        'url': u'/backend/xadmin/BandWeb/operaintro/',
-                        'icon': 'fa fa-music',
                         'order': 1,
                         'perm': 'auth.view_user',
-                        'title': u'介绍'
+                        'title': u'天姿国乐'
                     },
                     {
                         'url': u'/backend/xadmin/BandWeb/operanews/',
                         'icon': 'fa fa-music',
                         'order': 2,
                         'perm': 'auth.view_user',
-                        'title': u'新闻'
-                    }
-                ],
-                'first_icon': 'fa fa-music',
-                'first_url': u'/backend/xadmin/BandWeb/operaintro/',
-                'title': u'歌剧院'
-            },
-            {
-                'menus': [
+                        'title': u'歌剧院'
+                    },
                     {
                         'url': u'/backend/xadmin/BandWeb/businessdynamics/',
                         'icon': 'fa fa-music',
@@ -175,8 +147,8 @@ class GlobalSetting(object):
                     }
                 ],
                 'first_icon': 'fa fa-music',
-                'first_url': u'/backend/xadmin/BandWeb/businessdynamics/',
-                'title': u'事业动态'
+                'first_url': u'/backend/xadmin/BandWeb/beautymelodynews/',
+                'title': u'新闻动态'
             }
         ]
 
@@ -292,7 +264,7 @@ class PerformerAdmin(RichTextAdmin):
         )
     )
 
-
+"""
 class BeautyMelodyIntroAdmin(RichTextAdmin):
     form_layout = (
         Main(
@@ -301,6 +273,7 @@ class BeautyMelodyIntroAdmin(RichTextAdmin):
             Fieldset('英文介绍', 'detail_en')
         )
     )
+"""
 
 
 class BeautyMelodyNewsAdmin(RichTextAdmin):
@@ -313,7 +286,7 @@ class BeautyMelodyNewsAdmin(RichTextAdmin):
         )
     )
 
-
+"""
 class OperaIntroAdmin(RichTextAdmin):
     form_layout = (
         Main(
@@ -322,6 +295,7 @@ class OperaIntroAdmin(RichTextAdmin):
             Fieldset('英文介绍', 'detail_en')
         )
     )
+"""
 
 
 class OperaNewsAdmin(RichTextAdmin):
@@ -356,8 +330,8 @@ xadmin.site.register(Conductor, ConductorAdmin)
 xadmin.site.register(Director, DirectorAdmin)
 xadmin.site.register(InstrumentType)
 xadmin.site.register(Performer, PerformerAdmin)
-xadmin.site.register(BeautyMelodyIntro, BeautyMelodyIntroAdmin)
+# xadmin.site.register(BeautyMelodyIntro, BeautyMelodyIntroAdmin)
 xadmin.site.register(BeautyMelodyNews, BeautyMelodyNewsAdmin)
-xadmin.site.register(OperaIntro, OperaIntroAdmin)
+# xadmin.site.register(OperaIntro, OperaIntroAdmin)
 xadmin.site.register(OperaNews, OperaNewsAdmin)
 xadmin.site.register(BusinessDynamics, BusinessDynamicsAdmin)

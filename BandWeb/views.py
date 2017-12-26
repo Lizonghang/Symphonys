@@ -117,12 +117,13 @@ def get_performer_detail(request, lang, id):
     content = obj.get_abstract(lang, 'detail')
     return JsonResponse({'error': 0, 'body': content})
 
-
+"""
 @require_GET
 def get_beautymelody_intro(request, lang, verbose):
     obj = BeautyMelodyIntro.objects.first()
     content = obj.get_abstract(lang, verbose)
     return JsonResponse({'error': 0, 'body': content})
+"""
 
 
 @require_GET
@@ -140,12 +141,13 @@ def get_beautymelody_news_detail(request, lang, id):
     content = obj.get_abstract(lang, 'detail')
     return JsonResponse({'error': 0, 'body': content})
 
-
+"""
 @require_GET
 def get_opera_intro(request, lang, verbose):
     obj = OperaIntro.objects.first()
     content = obj.get_abstract(lang, verbose)
     return JsonResponse({'error': 0, 'body': content})
+"""
 
 
 @require_GET

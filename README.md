@@ -20,10 +20,8 @@
 * <a href="#获取乐团成员列表" style="text-decoration:none;">获取乐团成员列表</a>
 * <a href="#音乐会" style="text-decoration:none;">音乐会</a>
 * <a href="#月季" style="text-decoration:none;">月季</a>
-* <a href="#获取天姿国乐介绍" style="text-decoration:none;">获取天姿国乐介绍</a>
 * <a href="#获取天姿国乐新闻列表" style="text-decoration:none;">获取天姿国乐新闻列表</a>
 * <a href="#获取天姿国乐新闻全文" style="text-decoration:none;">获取天姿国乐新闻全文</a>
-* <a href="#获取歌剧院介绍" style="text-decoration:none;">获取歌剧院介绍</a>
 * <a href="#获取歌剧院新闻列表" style="text-decoration:none;">获取歌剧院新闻列表</a>
 * <a href="#获取歌剧院新闻全文" style="text-decoration:none;">获取歌剧院新闻全文</a>
 * <a href="#获取事业动态列表" style="text-decoration:none;">获取事业动态列表</a>
@@ -259,24 +257,6 @@
 
 ## 月季
 
-## 获取天姿国乐介绍
-
-#### API
-```
-/api/beautymelody/intro/cn/detail/
-```
-
-#### 返回
-```
-{
-    "body": {
-        "detail": "<p style=\"font-family:&quot;\">\r\n\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“天姿国乐”隶属于四川交响乐团，是中国西部年轻、优秀的职业女子民乐团，是中国对外文化交流的一张靓丽名片。她们的足迹遍布世界二十多个国家和地区，曾在美国肯尼迪音乐厅、捷克国家歌剧院、日本大阪音乐厅、波兰肖邦音乐厅、西班牙马德里音乐厅、莫斯科国际音乐宫、联合国万国宫等世界著名音乐圣殿成功的上演了专场音乐会，在世界各地播撒中国文化的种子，被誉为“带来奇妙音乐盛宴的乐团”。\r\n</p>\r\n<p>\r\n\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<span style=\"font-family:&quot;\">“天姿国乐”隶属于四川交响乐团，是中国西部年轻、优秀的职业女子民乐团，是中国对外文化交流的一张靓丽名片。她们的足迹遍布世界二十多个国家和地区，曾在美国肯尼迪音乐厅、捷克国家歌剧院、日本大阪音乐厅、波兰肖邦音乐厅、西班牙马德里音乐厅、莫斯科国际音乐宫、联合国万国宫等世界著名音乐圣殿成功的上演了专场音乐会，在世界各地播撒中国文化的种子，被誉为“带来奇妙音乐盛宴的乐团”。</span>\r\n</p>\r\n<p>\r\n\t<span style=\"font-family:&quot;\">\r\n\t<p style=\"font-family:&quot;\">\r\n\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“天姿国乐”隶属于四川交响乐团，是中国西部年轻、优秀的职业女子民乐团，是中国对外文化交流的一张靓丽名片。她们的足迹遍布世界二十多个国家和地区，曾在美国肯尼迪音乐厅、捷克国家歌剧院、日本大阪音乐厅、波兰肖邦音乐厅、西班牙马德里音乐厅、莫斯科国际音乐宫、联合国万国宫等世界著名音乐圣殿成功的上演了专场音乐会，在世界各地播撒中国文化的种子，被誉为“带来奇妙音乐盛宴的乐团”。\r\n\t</p>\r\n\t<p style=\"font-family:&quot;\">\r\n\t\t<p style=\"font-family:&quot;\">\r\n\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“天姿国乐”隶属于四川交响乐团，是中国西部年轻、优秀的职业女子民乐团，是中国对外文化交流的一张靓丽名片。她们的足迹遍布世界二十多个国家和地区，曾在美国肯尼迪音乐厅、捷克国家歌剧院、日本大阪音乐厅、波兰肖邦音乐厅、西班牙马德里音乐厅、莫斯科国际音乐宫、联合国万国宫等世界著名音乐圣殿成功的上演了专场音乐会，在世界各地播撒中国文化的种子，被誉为“带来奇妙音乐盛宴的乐团”。<span style=\"font-family:&quot;\"></span>\r\n\t\t</p>\r\n\t</p>\r\n</span>\r\n</p>",
-        "img": "http://www.desckie.com/assets/media/image/model_20171226173939316.png"
-    },
-    "error": 0
-}
-```
-
 ## 获取天姿国乐新闻列表
 
 #### API
@@ -351,17 +331,6 @@
     "error": 0
 }
 ```
-
-## 获取歌剧院介绍
-
-#### API
-```
-/api/opera/intro/cn/detail/
-```
-
-#### 返回
-
-返回JSON格式与<a href="#获取天姿国乐介绍" style="text-decoration:none;">获取天姿国乐介绍</a>类似。
 
 ## 获取歌剧院新闻列表
 

@@ -21,3 +21,7 @@ class UploadMediaManager:
             type=media_type,
             filename=filename
         )
+
+
+def clip_text(raw_text, keep_n):
+    return raw_text + '...'

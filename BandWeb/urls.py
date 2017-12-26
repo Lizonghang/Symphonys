@@ -38,13 +38,13 @@ musicale = [
 ]
 
 beautymelody = [
-    url(r'^intro/(?P<lang>[ce]n)/(?P<verbose>[abstrcdeil]+)/$', views.get_beautymelody_intro),
+    # url(r'^intro/(?P<lang>[ce]n)/(?P<verbose>[abstrcdeil]+)/$', views.get_beautymelody_intro),
     url(r'^news/(?P<lang>[ce]n)/list/(?P<page>[0-9]+)/$', views.get_beautymelody_news_list),
     url(r'^news/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_beautymelody_news_detail)
 ]
 
 opera = [
-    url(r'^intro/(?P<lang>[ce]n)/(?P<verbose>[abstrcdeil]+)/$', views.get_opera_intro),
+    # url(r'^intro/(?P<lang>[ce]n)/(?P<verbose>[abstrcdeil]+)/$', views.get_opera_intro),
     url(r'^news/(?P<lang>[ce]n)/list/(?P<page>[0-9]+)/$', views.get_opera_news_list),
     url(r'^news/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_opera_news_detail)
 ]
