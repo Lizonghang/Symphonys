@@ -1,6 +1,7 @@
 # coding=utf-8
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_GET
+from django.core.paginator import Paginator, EmptyPage
 from models import *
 import math
 import utils
@@ -20,6 +21,27 @@ def get_banner(request, lang):
     content = []
     for obj in Banner.objects.order_by('order'):
         content.append(obj.get_abstract(lang))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def view_musicale_detail(request, lang, id):
+    obj = Musicale.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def view_musicale_list(request, lang, page):
+    musicale_list = Musicale.objects.all()
+    paginator = Paginator(musicale_list, 6)
+    try:
+        musicale_list = paginator.page(page)
+    except EmptyPage:
+        musicale_list = paginator.page(paginator.num_pages)
+    content = []
+    for obj in musicale_list:
+        content.append(obj.get_abstract(lang, 'abstract'))
     return JsonResponse({'error': 0, 'body': content})
 
 

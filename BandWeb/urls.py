@@ -14,11 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-import views
-
-home = [
-    url(r'^banner/(?P<lang>[ce]n)/list/$', views.get_banner)
-]
+import BandWeb.views as views
 
 intro = [
     url(r'^abstract/(?P<lang>[ce]n)/$', views.get_intro),
@@ -29,7 +25,16 @@ intro = [
     url(r'^director/(?P<lang>[ce]n)/$', views.get_director),
     url(r'^instrument/(?P<lang>[ce]n)/$', views.get_instrument),
     url(r'^performer/(?P<lang>[ce]n)/(?P<instrument_id>[0-9]+)/$', views.get_performer_list),
-    url(r'^performer/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_performer_detail)
+    url(r'^performer/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_performer_detail),
+]
+
+home = [
+    url(r'^banner/(?P<lang>[ce]n)/list/$', views.get_banner)
+]
+
+musicale = [
+    url(r'^musicale/(?P<lang>[ce]n)/list/(?P<page>[0-9]+)/$', views.view_musicale_list),
+    url(r'^musicale/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.view_musicale_detail),
 ]
 
 beautymelody = [
@@ -55,5 +60,6 @@ urlpatterns = [
     url(r'^intro/', include(intro)),
     url(r'^beautymelody/', include(beautymelody)),
     url(r'^opera/', include(opera)),
-    url(r'^businessdynamics/', include(businessdynamics))
+    url(r'^businessdynamics/', include(businessdynamics)),
+    url(r'^musicale/', include(musicale))
 ]

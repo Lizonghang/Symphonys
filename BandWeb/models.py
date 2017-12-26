@@ -10,6 +10,37 @@ class Musicale(models.Model):
     content_cn = models.TextField(u"中文内容", default='')
     title_en = models.CharField(u"英文标题", max_length=100, unique=True, default='')
     content_en = models.TextField(u"英文内容", default='')
+    img = models.ImageField(u"图片", upload_to='image', default=None, storage=ImageStorage())
+
+    def get_abstract(self, lang, verbose):
+        if lang == 'cn':
+            intro = {
+                'id': self.id,
+                'img': "{proto}://{domain}{path}".format(
+                    proto=config.PROTOCOL,
+                    domain=config.DOMAIN,
+                    path=self.img.url,
+                ),
+                'title': self.title_cn,
+                'update': self.update,
+            }
+            if verbose == 'detail':
+                intro['content'] = self.content_cn
+            return intro
+        else:
+            intro = {
+                'id': self.id,
+                'img': "{proto}://{domain}{path}".format(
+                    proto=config.PROTOCOL,
+                    domain=config.DOMAIN,
+                    path=self.img.url,
+                ),
+                'title': self.title_en,
+                'update': self.update,
+            }
+            if verbose == 'detail':
+                intro['content'] = self.content_en
+            return intro
 
     def save(self, *args, **kwargs):
         super(Musicale, self).save(*args, **kwargs)

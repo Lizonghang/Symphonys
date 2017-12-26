@@ -37,10 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'corsheaders',
     'BandWeb',
     'xadmin',
-    'crispy_forms',
-    'corsheaders'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,7 +91,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'zh_CN'
+LANGUAGE_CODE = 'zh_Hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -123,7 +123,7 @@ CORS_ALLOW_METHODS = ('GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'PATCH', 'OPTIONS'
 # Session expired time
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-SESSION_COOKIE_AGE = 60*60*30
+SESSION_COOKIE_AGE = 60 * 60 * 30
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
