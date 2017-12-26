@@ -25,6 +25,16 @@ def get_banner(request, lang):
 
 
 @require_GET
+def get_home_news(request, lang):
+    content = {'festival': [], 'business': []}
+    for obj in MusicFestival.objects.order_by('-id')[:3]:
+        content['festival'].append(obj.get_abstract(lang, 'abstract'))
+    for obj in BusinessDynamics.objects.order_by('-id')[:3]:
+        content['business'].append(obj.get_abstract(lang, 'abstract'))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
 def view_musicale_detail(request, lang, id):
     obj = Musicale.objects.get(id=id)
     content = obj.get_abstract(lang, 'detail')
@@ -33,15 +43,38 @@ def view_musicale_detail(request, lang, id):
 
 @require_GET
 def view_musicale_list(request, lang, page):
-    musicale_list = Musicale.objects.all()
+    musicale_list = Musicale.objects.order_by('-id')
     paginator = Paginator(musicale_list, 6)
     try:
         musicale_list = paginator.page(int(page))
     except EmptyPage:
         musicale_list = paginator.page(paginator.num_pages)
-    content = []
+    content = {'news': []}
     for obj in musicale_list:
-        content.append(obj.get_abstract(lang, 'abstract'))
+        content['news'].append(obj.get_abstract(lang, 'abstract'))
+    content['max_page'] = paginator.num_pages
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def view_musicfestival_detail(request, lang, id):
+    obj = MusicFestival.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def view_musicfestival_list(request, lang, page):
+    musicfestival_list = MusicFestival.objects.order_by('-id')
+    paginator = Paginator(musicfestival_list, 6)
+    try:
+        musicfestival_list = paginator.page(int(page))
+    except EmptyPage:
+        musicfestival_list = paginator.page(paginator.num_pages)
+    content = {'news': []}
+    for obj in musicfestival_list:
+        content['news'].append(obj.get_abstract(lang, 'abstract'))
+    content['max_page'] = paginator.num_pages
     return JsonResponse({'error': 0, 'body': content})
 
 
@@ -181,6 +214,11 @@ def get_businessdynamics_news_detail(request, lang, id):
     obj = BusinessDynamics.objects.get(id=id)
     content = obj.get_abstract(lang, 'detail')
     return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def search(request):
+    return JsonResponse({'error': 1, 'code': 0, 'msg': 'Under Development'})
 
 
 def request500_error(request):

@@ -11,55 +11,6 @@ def default_time_now():
     return datetime.utcnow().replace(tzinfo=utc)
 
 
-class Musicale(models.Model):
-    publish_time = models.DateField(u"发布日期", default=default_time_now)
-    title_cn = models.CharField(u"中文标题", max_length=100, unique=True, default='')
-    content_cn = models.TextField(u"中文内容", default='')
-    title_en = models.CharField(u"英文标题", max_length=100, unique=True, default='')
-    content_en = models.TextField(u"英文内容", default='')
-    img = models.ImageField(u"图片", upload_to='image', default=None, storage=ImageStorage())
-
-    def get_abstract(self, lang, verbose):
-        if lang == 'cn':
-            intro = {
-                'id': self.id,
-                'img': "{proto}://{domain}{path}".format(
-                    proto=config.PROTOCOL,
-                    domain=config.DOMAIN,
-                    path=self.img.url,
-                ),
-                'title': self.title_cn,
-                'date': self.publish_time.strftime('%Y年%m月%d日')
-            }
-            if verbose == 'detail':
-                intro['detail'] = self.content_cn
-            return intro
-        else:
-            intro = {
-                'id': self.id,
-                'img': "{proto}://{domain}{path}".format(
-                    proto=config.PROTOCOL,
-                    domain=config.DOMAIN,
-                    path=self.img.url,
-                ),
-                'title': self.title_en,
-                'date': self.publish_time.strftime('%Y-%m-%d')
-            }
-            if verbose == 'detail':
-                intro['detail'] = self.content_en
-            return intro
-
-    def save(self, *args, **kwargs):
-        super(Musicale, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return '{} ({})'.format(self.title_cn, self.title_en)
-
-    class Meta:
-        verbose_name = u'音乐会'
-        verbose_name_plural = verbose_name
-
-
 class Banner(models.Model):
     img = models.ImageField(u"轮播图", upload_to='image', default=None, storage=ImageStorage())
     order = models.IntegerField(u"顺序", default=100)
@@ -344,6 +295,93 @@ class Performer(models.Model):
     class Meta:
         verbose_name = u'乐团成员'
         verbose_name_plural = verbose_name
+
+
+class Musicale(models.Model):
+    publish_time = models.DateField(u"发布日期", default=default_time_now)
+    title_cn = models.CharField(u"中文标题", max_length=100, unique=True, default='')
+    content_cn = models.TextField(u"中文内容", default='')
+    title_en = models.CharField(u"英文标题", max_length=100, unique=True, default='')
+    content_en = models.TextField(u"英文内容", default='')
+    img = models.ImageField(u"图片", upload_to='image', default=None, storage=ImageStorage())
+
+    def get_abstract(self, lang, verbose):
+        if lang == 'cn':
+            intro = {
+                'id': self.id,
+                'img': "{proto}://{domain}{path}".format(
+                    proto=config.PROTOCOL,
+                    domain=config.DOMAIN,
+                    path=self.img.url,
+                ),
+                'title': self.title_cn,
+                'date': self.publish_time.strftime('%Y年%m月%d日')
+            }
+            if verbose == 'detail':
+                intro['detail'] = self.content_cn
+            return intro
+        else:
+            intro = {
+                'id': self.id,
+                'img': "{proto}://{domain}{path}".format(
+                    proto=config.PROTOCOL,
+                    domain=config.DOMAIN,
+                    path=self.img.url,
+                ),
+                'title': self.title_en,
+                'date': self.publish_time.strftime('%Y-%m-%d')
+            }
+            if verbose == 'detail':
+                intro['detail'] = self.content_en
+            return intro
+
+    def __str__(self):
+        return self.title_cn
+
+    class Meta:
+        verbose_name = u'音乐会'
+        verbose_name_plural = verbose_name
+
+
+class MusicFestival(models.Model):
+    img = models.ImageField(u"图片", upload_to='image', default=None, storage=ImageStorage())
+    publish_time = models.DateField(u"发布日期", default=default_time_now)
+    title_cn = models.CharField(u"中文标题", max_length=100, unique=True, default='')
+    content_cn = models.TextField(u"中文内容", default='')
+    title_en = models.CharField(u"英文标题", max_length=100, unique=True, default='')
+    content_en = models.TextField(u"英文内容", default='')
+
+    def get_abstract(self, lang, verbose):
+        intro = {
+            'id': self.id,
+            'img': "{proto}://{domain}{path}".format(
+                proto=config.PROTOCOL,
+                domain=config.DOMAIN,
+                path=self.img.url
+            )
+        }
+        if lang == 'cn':
+            intro['date'] = self.publish_time.strftime('%Y年%m月%d日')
+            intro['title'] = self.title_cn
+            if verbose == 'abstract':
+                intro['abstract'] = utils.clip_n_rows(self.content_cn, lang='cn')
+            else:
+                intro['detail'] = self.content_cn
+        else:
+            intro['date'] = self.publish_time.strftime('%Y-%m-%d')
+            intro['title'] = self.title_en
+            if verbose == 'abstract':
+                intro['abstract'] = utils.clip_n_rows(self.content_en, lang='en')
+            else:
+                intro['detail'] = self.content_en
+
+    def __str__(self):
+        return self.title_cn
+
+    class Meta:
+        verbose_name = u'乐季'
+        verbose_name_plural = verbose_name
+
 
 """
 class BeautyMelodyIntro(models.Model):

@@ -35,3 +35,7 @@ def clip_text(raw_text, keep_n=50, lang='cn'):
         while raw_intro[keep_n].isalpha():
             keep_n += 1
     return raw_intro[:keep_n] + '...'
+
+
+def clip_n_rows(raw_text, lang='cn'):
+    return raw_text

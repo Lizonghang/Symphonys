@@ -29,12 +29,15 @@ intro = [
 ]
 
 home = [
-    url(r'^banner/(?P<lang>[ce]n)/list/$', views.get_banner)
+    url(r'^banner/(?P<lang>[ce]n)/list/$', views.get_banner),
+    url(r'^news/(?P<lang>[ce]n)/list/$', views.get_home_news)
 ]
 
 musicale = [
     url(r'^musicale/(?P<lang>[ce]n)/list/(?P<page>[0-9]+)/$', views.view_musicale_list),
     url(r'^musicale/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.view_musicale_detail),
+    url(r'^festival/(?P<lang>[ce]n)/list/(?P<page>[0-9]+)/$', views.view_musicfestival_list),
+    url(r'^festival/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.view_musicfestival_detail)
 ]
 
 beautymelody = [
@@ -56,6 +59,7 @@ businessdynamics = [
 
 urlpatterns = [
     url(r'^richtext/media/upload/$', views.upload_media),
+    url(r'^search/$', views.search),
     url(r'^home/', include(home)),
     url(r'^intro/', include(intro)),
     url(r'^beautymelody/', include(beautymelody)),

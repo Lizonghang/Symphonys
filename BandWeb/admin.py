@@ -179,9 +179,17 @@ class RichTextAdmin(object):
 
 class MusicaleAdmin(RichTextAdmin):
     list_display = ('title_cn', 'title_en', 'publish_time')
-    list_filter = ('title_cn', 'title_en', 'publish_time')
-    search_fields = ('title_cn', 'title_en', 'publish_time')
-    list_editable = ('title_cn', 'title_en')
+    form_layout = (
+        Main(
+            Fieldset('图片与日期', 'img', 'publish_time'),
+            Fieldset('中文信息', 'title_cn', 'content_cn'),
+            Fieldset('英文信息', 'title_en', 'content_en'),
+        ),
+    )
+
+
+class MusicFestivalAdmin(RichTextAdmin):
+    list_display = ('title_cn', 'title_en', 'publish_time')
     form_layout = (
         Main(
             Fieldset('图片与日期', 'img', 'publish_time'),
@@ -322,6 +330,7 @@ class BusinessDynamicsAdmin(RichTextAdmin):
 xadmin.site.register(CommAdminView, GlobalSetting)
 xadmin.site.register(BaseAdminView, BaseSetting)
 xadmin.site.register(Musicale, MusicaleAdmin)
+xadmin.site.register(MusicFestival, MusicFestivalAdmin)
 xadmin.site.register(Banner, BannerAdmin)
 xadmin.site.register(YueTuanIntro, YueTuanIntroAdmin)
 xadmin.site.register(YueTuanLeader, YueTuanLeaderAdmin)
