@@ -32,7 +32,7 @@ class Musicale(models.Model):
                 'date': self.publish_time.strftime('%Y年%m月%d日')
             }
             if verbose == 'detail':
-                intro['content'] = self.content_cn
+                intro['detail'] = self.content_cn
             return intro
         else:
             intro = {
@@ -46,7 +46,7 @@ class Musicale(models.Model):
                 'date': self.publish_time.strftime('%Y-%m-%d')
             }
             if verbose == 'detail':
-                intro['content'] = self.content_en
+                intro['detail'] = self.content_en
             return intro
 
     def save(self, *args, **kwargs):
@@ -119,9 +119,9 @@ class YueTuanIntro(models.Model):
 
     def get_abstract(self, lang='cn'):
         if lang == 'cn':
-            return {'content_cn': self.content_cn}
+            return {'content': self.content_cn}
         else:
-            return {'content_en': self.content_en}
+            return {'content': self.content_en}
 
     def save(self, *args, **kwargs):
         nb = YueTuanIntro.objects.count()
@@ -181,9 +181,9 @@ class PresidentAddress(models.Model):
 
     def get_abstract(self, lang):
         if lang == 'cn':
-            return {'address': self.address_cn}
+            return {'content': self.address_cn}
         else:
-            return {'address': self.address_en}
+            return {'content': self.address_en}
 
     def save(self, *args, **kwargs):
         nb = PresidentAddress.objects.count()
