@@ -396,13 +396,13 @@ class BeautyMelodyNews(models.Model):
         if lang == 'cn':
             content['title'] = self.title_cn
             if verbose == 'abstract':
-                content['detail'] = None
+                content['abstract'] = None
             else:
                 content['detail'] = self.detail_cn
         else:
             content['title'] = self.title_en
             if verbose == 'abstract':
-                content['detail'] = None
+                content['abstract'] = None
             else:
                 content['detail'] = self.detail_en
         return content
@@ -429,9 +429,9 @@ class OperaIntro(models.Model):
             )
         }
         if lang == 'cn' and verbose == 'abstract':
-            intro['detail'] = None
+            intro['abstract'] = None
         elif lang == 'en' and verbose == 'abstract':
-            intro['detail'] = None
+            intro['abstract'] = None
         elif lang == 'cn' and verbose == 'detail':
             intro['detail'] = self.detail_cn
         else:
@@ -472,13 +472,13 @@ class OperaNews(models.Model):
         if lang == 'cn':
             content['title'] = self.title_cn
             if verbose == 'abstract':
-                content['detail'] = None
+                content['abstract'] = None
             else:
                 content['detail'] = self.detail_cn
         else:
             content['title'] = self.title_en
             if verbose == 'abstract':
-                content['detail'] = None
+                content['abstract'] = None
             else:
                 content['detail'] = self.detail_en
         return content
@@ -512,13 +512,13 @@ class BusinessDynamics(models.Model):
         if lang == 'cn':
             content['title'] = self.title_cn
             if verbose == 'abstract':
-                content['detail'] = None
+                content['abstract'] = None
             else:
                 content['detail'] = self.detail_cn
         else:
             content['title'] = self.title_en
             if verbose == 'abstract':
-                content['detail'] = None
+                content['abstract'] = None
             else:
                 content['detail'] = self.detail_en
         return content

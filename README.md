@@ -5,7 +5,10 @@
 * 传输协议: http
 * 主机域名: www.desckie.com
 * 请求方法: GET
-* URL规则: 所有URL中，<code>cn</code>为获取中文返回，<code>en</code>为获取英文返回。
+* 中英文切换: <code>cn</code>为获取中文返回，<code>en</code>为获取英文返回。
+* 获取简介/详情: <code>abstract</code>为获取介绍简介，<code>detail</code>为获取介绍全文。
+* 正序与逆序: 从最近开始<code>reverse</code>，从最早开始<code>sequence</code>。
+* 整数占位符: <code>{{INSTRUMENT_ID}}</code>、<code>{{ID}}</code>、<code>{{PAGE}}</code>，代表对应标识的整数值。
 
 ## 目录
 * <a href="https://github.com/Lizonghang/Symphonys#获取首页轮播图" style="text-decoration:none;">获取首页轮播图</a>
@@ -212,5 +215,178 @@
 
 #### API
 ```
-
+/api/intro/performer/cn/list/{{INSTRUMENT_ID}}/
 ```
+
+#### 返回
+```
+{
+    "body": [
+        {
+            "instrument_type": "一提琴",
+            "id": 1,
+            "img": "http://www.desckie.com/assets/media/image/model_20171226172326241.png",
+            "name": "张旭"
+        },
+        {
+            "instrument_type": "一提琴",
+            "id": 2,
+            "img": "http://www.desckie.com/assets/media/image/model_20171226172427149.png",
+            "name": "杨帆"
+        }
+    ],
+    "error": 0
+}
+```
+
+## 音乐会
+
+## 月季
+
+## 获取天姿国乐介绍
+
+#### API
+```
+/api/beautymelody/intro/cn/detail/
+```
+
+#### 返回
+```
+{
+    "body": {
+        "detail": "<p style=\"font-family:&quot;\">\r\n\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“天姿国乐”隶属于四川交响乐团，是中国西部年轻、优秀的职业女子民乐团，是中国对外文化交流的一张靓丽名片。她们的足迹遍布世界二十多个国家和地区，曾在美国肯尼迪音乐厅、捷克国家歌剧院、日本大阪音乐厅、波兰肖邦音乐厅、西班牙马德里音乐厅、莫斯科国际音乐宫、联合国万国宫等世界著名音乐圣殿成功的上演了专场音乐会，在世界各地播撒中国文化的种子，被誉为“带来奇妙音乐盛宴的乐团”。\r\n</p>\r\n<p>\r\n\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<span style=\"font-family:&quot;\">“天姿国乐”隶属于四川交响乐团，是中国西部年轻、优秀的职业女子民乐团，是中国对外文化交流的一张靓丽名片。她们的足迹遍布世界二十多个国家和地区，曾在美国肯尼迪音乐厅、捷克国家歌剧院、日本大阪音乐厅、波兰肖邦音乐厅、西班牙马德里音乐厅、莫斯科国际音乐宫、联合国万国宫等世界著名音乐圣殿成功的上演了专场音乐会，在世界各地播撒中国文化的种子，被誉为“带来奇妙音乐盛宴的乐团”。</span>\r\n</p>\r\n<p>\r\n\t<span style=\"font-family:&quot;\">\r\n\t<p style=\"font-family:&quot;\">\r\n\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“天姿国乐”隶属于四川交响乐团，是中国西部年轻、优秀的职业女子民乐团，是中国对外文化交流的一张靓丽名片。她们的足迹遍布世界二十多个国家和地区，曾在美国肯尼迪音乐厅、捷克国家歌剧院、日本大阪音乐厅、波兰肖邦音乐厅、西班牙马德里音乐厅、莫斯科国际音乐宫、联合国万国宫等世界著名音乐圣殿成功的上演了专场音乐会，在世界各地播撒中国文化的种子，被誉为“带来奇妙音乐盛宴的乐团”。\r\n\t</p>\r\n\t<p style=\"font-family:&quot;\">\r\n\t\t<p style=\"font-family:&quot;\">\r\n\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“天姿国乐”隶属于四川交响乐团，是中国西部年轻、优秀的职业女子民乐团，是中国对外文化交流的一张靓丽名片。她们的足迹遍布世界二十多个国家和地区，曾在美国肯尼迪音乐厅、捷克国家歌剧院、日本大阪音乐厅、波兰肖邦音乐厅、西班牙马德里音乐厅、莫斯科国际音乐宫、联合国万国宫等世界著名音乐圣殿成功的上演了专场音乐会，在世界各地播撒中国文化的种子，被誉为“带来奇妙音乐盛宴的乐团”。<span style=\"font-family:&quot;\"></span>\r\n\t\t</p>\r\n\t</p>\r\n</span>\r\n</p>",
+        "img": "http://www.desckie.com/assets/media/image/model_20171226173939316.png"
+    },
+    "error": 0
+}
+```
+
+## 获取天姿国乐新闻列表
+
+#### API
+```
+/api/beautymelody/news/cn/list/{{PAGE}}/
+```
+
+#### 返回
+```
+{
+    "body": {
+        "max_page": 2,
+        "news": [
+            {
+                "date": "2017-12-26",
+                "abstract": null,
+                "id": 6,
+                "img": "http://www.desckie.com/assets/media/image/model_20171226175648728.png",
+                "title": "文章6"
+            },
+            {
+                "date": "2017-12-26",
+                "abstract": null,
+                "id": 5,
+                "img": "http://www.desckie.com/assets/media/image/model_20171226175627802.png",
+                "title": "文章5"
+            },
+            {
+                "date": "2017-12-26",
+                "abstract": null,
+                "id": 4,
+                "img": "http://www.desckie.com/assets/media/image/model_20171226175609254.png",
+                "title": "文章4"
+            },
+            {
+                "date": "2017-12-26",
+                "abstract": null,
+                "id": 3,
+                "img": "http://www.desckie.com/assets/media/image/model_20171226175545411.png",
+                "title": "文章3"
+            },
+            {
+                "date": "2017-12-26",
+                "abstract": null,
+                "id": 2,
+                "img": "http://www.desckie.com/assets/media/image/model_20171226175524233.png",
+                "title": "文章2"
+            }
+        ]
+    },
+    "error": 0
+}
+```
+
+## 获取天姿国乐新闻全文
+
+#### API
+```
+/api/beautymelody/news/cn/detail/{{ID}}/
+```
+
+#### 返回
+```
+{
+    "body": {
+        "date": "2017-12-26",
+        "detail": "<p style=\"font-family:&quot;\">\r\n\t文章1内容\r\n</p>",
+        "id": 1,
+        "img": "http://www.desckie.com/assets/media/image/model_20171226175413349.png",
+        "title": "文章1"
+    },
+    "error": 0
+}
+```
+
+## 获取歌剧院介绍
+
+#### API
+```
+/api/opera/intro/cn/detail/
+```
+
+#### 返回
+
+返回JSON格式与<a href="#获取天姿国乐介绍" style="text-decoration:none;">获取天姿国乐介绍</a>类似。
+
+## 获取歌剧院新闻列表
+
+#### API
+```
+/api/opera/news/cn/list/{{PAGE}}/
+```
+
+#### 返回
+
+返回JSON格式与<a href="#获取天姿国乐新闻列表" style="text-decoration:none;">获取天姿国乐新闻列表</a>类似。
+
+## 获取歌剧院新闻全文
+
+#### API
+```
+/api/opera/news/cn/detail/{{ID}}/
+```
+
+#### 返回
+
+返回JSON格式与<a href="#获取天姿国乐新闻全文" style="text-decoration:none;">获取天姿国乐新闻全文</a>类似。
+
+## 获取事业动态列表
+
+#### API
+```
+/api/businessdynamics/news/cn/list/reverse/{{PAGE}}/
+```
+
+#### 返回
+
+返回JSON格式与<a href="#获取天姿国乐新闻全文" style="text-decoration:none;">获取天姿国乐新闻全文</a>类似。
+
+## 获取事业动态全文
+
+#### API
+```
+/api/businessdynamics/news/cn/detail/{{ID}}/
+```
+
+#### 返回
+
+返回JSON格式与<a href="#获取天姿国乐新闻全文" style="text-decoration:none;">获取天姿国乐新闻全文</a>类似。

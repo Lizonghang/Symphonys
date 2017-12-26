@@ -36,7 +36,7 @@ def view_musicale_list(request, lang, page):
     musicale_list = Musicale.objects.all()
     paginator = Paginator(musicale_list, 6)
     try:
-        musicale_list = paginator.page(page)
+        musicale_list = paginator.page(int(page))
     except EmptyPage:
         musicale_list = paginator.page(paginator.num_pages)
     content = []
@@ -128,7 +128,7 @@ def get_beautymelody_intro(request, lang, verbose):
 @require_GET
 def get_beautymelody_news_list(request, lang, page):
     content = {'news': []}
-    for obj in BeautyMelodyNews.objects.order_by('-id')[(page-1)*5:page*5]:
+    for obj in BeautyMelodyNews.objects.order_by('-id')[(int(page)-1)*5:int(page)*5]:
         content['news'].append(obj.get_abstract(lang, 'abstract'))
     content['max_page'] = int(math.ceil(BeautyMelodyNews.objects.count()/5.0))
     return JsonResponse({'error': 0, 'body': content})
@@ -151,7 +151,7 @@ def get_opera_intro(request, lang, verbose):
 @require_GET
 def get_opera_news_list(request, lang, page):
     content = {'news': []}
-    for obj in OperaNews.objects.order_by('-id')[(page-1)*5:page*5]:
+    for obj in OperaNews.objects.order_by('-id')[(int(page)-1)*5:int(page)*5]:
         content['news'].append(obj.get_abstract(lang, 'abstract'))
     content['max_page'] = int(math.ceil(OperaNews.objects.count()/5.0))
     return JsonResponse({'error': 0, 'body': content})
@@ -168,7 +168,7 @@ def get_opera_news_detail(request, lang, id):
 def get_businessdynamics_news_list(request, lang, page, order):
     content = {'news': []}
     order_map = {'sequence': 'id', 'reverse': '-id'}
-    for obj in BusinessDynamics.objects.order_by(order_map[order])[(page-1)*5:page*5]:
+    for obj in BusinessDynamics.objects.order_by(order_map[order])[(int(page)-1)*5:int(page)*5]:
         content['news'].append(obj.get_abstract(lang, 'abstract'))
     content['max_page'] = int(math.ceil(BusinessDynamics.objects.count()/5.0))
     return JsonResponse({'error': 0, 'body': content})
