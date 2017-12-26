@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 import BandWeb.views as views
 
 intro = [
-    url(r'^abstract/(?P<lang>[ce]n)/$', views.get_intro),
+    url(r'^intro/(?P<lang>[ce]n)/$', views.get_intro),
     url(r'^leader/(?P<lang>[ce]n)/list/$', views.get_leader_list),
     url(r'^leader/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_leader_detail),
     url(r'^conductor/(?P<lang>[ce]n)/list/$', views.get_conductor_list),

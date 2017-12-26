@@ -239,7 +239,7 @@ class YueTuanIntroAdmin(RichTextAdmin):
     )
 
 
-class YueTuanLeaderAdmin(object):
+class YueTuanLeaderAdmin(RichTextAdmin):
     list_display = ('president_name_cn', 'president_name_en', 'president_type')
     form_layout = (
         Main(
