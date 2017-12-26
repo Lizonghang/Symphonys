@@ -14,14 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
+from Symphonys import settings
 import xadmin
-import Symphonys.settings
-from django import views
+import django
 
 xadmin.autodiscover()
 
 urlpatterns = [
     url(r'^backend/xadmin/', include(xadmin.site.urls)),
     url(r'^api/', include('BandWeb.urls')),
-    url(r'^assets/(?P<path>.*)$', views.static.serve, {'document_root': Symphonys.settings.STATIC_ROOT}),
+    url(r'^assets/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.STATIC_ROOT}),
 ]

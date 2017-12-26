@@ -24,7 +24,7 @@ intro = [
     url(r'^conductor/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_conductor_detail),
     url(r'^director/(?P<lang>[ce]n)/$', views.get_director),
     url(r'^instrument/(?P<lang>[ce]n)/$', views.get_instrument),
-    url(r'^performer/(?P<lang>[ce]n)/(?P<instrument_id>[0-9]+)/$', views.get_performer_list),
+    url(r'^performer/(?P<lang>[ce]n)/list/(?P<instrument_id>[0-9]+)/$', views.get_performer_list),
     url(r'^performer/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_performer_detail),
 ]
 

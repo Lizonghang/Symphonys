@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'bp6tsfmc%(+23%&fgoc1$vf++rfvnqfej3e(p05emku#8+p6g+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -91,7 +91,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'zh_Hans'
+LANGUAGE_CODE = 'zh_CN'
 
 TIME_ZONE = 'Asia/Shanghai'
 
