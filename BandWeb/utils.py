@@ -37,5 +37,24 @@ def clip_text(raw_text, keep_n=50, lang='cn'):
     return raw_intro[:keep_n] + '...'
 
 
-def clip_n_rows(raw_text, lang='cn'):
-    return raw_text
+def clip_n_rows(raw_html, lang='cn', row_max=4, width_max=18):
+    raw_text = re.sub(u'<.*?>', '', raw_html)
+    raw_text = re.sub(u'[\r\t]', '', raw_text)
+    raw_text = re.sub(u'[\n]', ' ', raw_text)
+    raw_text = '\n'.join(raw_text.strip().split())
+    row = 1
+    word = 0
+    i = 0
+    while True:
+        if row == 5:
+            break
+        if u'\u4e00' <= raw_text[i] <= u'\u9fa5':
+            word += 1
+        if word == width_max:
+            word = 0
+            row += 1
+        if raw_text[i] == '\n':
+            word = 0
+            row += 1
+        i += 1
+    return raw_text[:i-2] + '...'

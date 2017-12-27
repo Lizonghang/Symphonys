@@ -374,6 +374,7 @@ class MusicFestival(models.Model):
                 intro['abstract'] = utils.clip_n_rows(self.content_en, lang='en')
             else:
                 intro['detail'] = self.content_en
+        return intro
 
     def __str__(self):
         return self.title_cn
