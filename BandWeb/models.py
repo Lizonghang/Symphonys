@@ -100,6 +100,8 @@ class YueTuanLeader(models.Model):
     def get_abstract(self, lang, verbose):
         intro = {
             'id': self.id,
+            'name_cn': self.president_name_cn,
+            'name_en': self.president_name_en,
             'img': "{proto}://{domain}{path}".format(
                 proto=config.PROTOCOL,
                 domain=config.DOMAIN,
@@ -107,12 +109,10 @@ class YueTuanLeader(models.Model):
             'president_type': int(self.president_type)
         }
         if lang == 'cn':
-            intro['name'] = self.president_name_cn
             intro['intro'] = self.president_intro_cn
             if verbose == 'detail':
                 intro['detail'] = self.president_detail_cn
         else:
-            intro['name'] = self.president_name_en
             intro['intro'] = self.president_intro_en
             if verbose == 'detail':
                 intro['detail'] = self.president_detail_en
@@ -159,31 +159,23 @@ class Conductor(models.Model):
     detail_en = models.TextField(u"介绍详情(英文)", default='')
 
     def get_abstract(self, lang, verbose):
+        intro = {
+            'id': self.id,
+            'name_cn': self.name_cn,
+            'name_en': self.name_en,
+            'img': "{proto}://{domain}{path}".format(
+                proto=config.PROTOCOL,
+                domain=config.DOMAIN,
+                path=self.img.url
+            ),
+        }
         if lang == 'cn':
-            intro = {
-                'id': self.id,
-                'img': "{proto}://{domain}{path}".format(
-                    proto=config.PROTOCOL,
-                    domain=config.DOMAIN,
-                    path=self.img.url
-                ),
-                'name': self.name_cn,
-                'intro': self.intro_cn
-            }
+            intro['intro'] = self.intro_cn
             if verbose == 'detail':
                 intro['detail'] = self.detail_cn
             return intro
         else:
-            intro = {
-                'id': self.id,
-                'img': "{proto}://{domain}{path}".format(
-                    proto=config.PROTOCOL,
-                    domain=config.DOMAIN,
-                    path=self.img.url
-                ),
-                'name': self.name_en,
-                'intro': self.intro_en
-            }
+            intro['intro'] = self.intro_en
             if verbose == 'detail':
                 intro['detail'] = self.detail_en
             return intro
@@ -206,28 +198,24 @@ class Director(models.Model):
     detail_en = models.TextField(u"介绍详情(英文)", default='')
 
     def get_abstract(self, lang):
+        intro = {
+            'id': self.id,
+            'name_cn': self.name_cn,
+            'name_en': self.name_en,
+            'img': "{proto}://{domain}{path}".format(
+                proto=config.PROTOCOL,
+                domain=config.DOMAIN,
+                path=self.img.url
+            )
+        }
         if lang == 'cn':
-            return {
-                'img': "{proto}://{domain}{path}".format(
-                    proto=config.PROTOCOL,
-                    domain=config.DOMAIN,
-                    path=self.img.url
-                ),
-                'name': self.name_cn,
-                'intro': self.intro_cn,
-                'detail': self.detail_cn
-            }
+            intro['intro'] = self.intro_cn
+            intro['detail'] = self.detail_cn
+            return intro
         else:
-            return {
-                'img': "{proto}://{domain}{path}".format(
-                    proto=config.PROTOCOL,
-                    domain=config.DOMAIN,
-                    path=self.img.url
-                ),
-                'name': self.name_en,
-                'intro': self.intro_en,
-                'detail': self.detail_en
-            }
+            intro['intro'] = self.intro_en
+            intro['detail'] = self.detail_en
+            return intro
 
     def save(self, *args, **kwargs):
         nb = Director.objects.count()
@@ -275,15 +263,15 @@ class Performer(models.Model):
                 proto=config.PROTOCOL,
                 domain=config.DOMAIN,
                 path=self.img.url
-            )
+            ),
+            'name_cn': self.name_cn,
+            'name_en': self.name_en
         }
         if lang == 'cn':
-            intro['name'] = self.name_cn
             intro['instrument_type'] = self.instrument_type.name_cn
             if verbose == 'detail':
                 intro['detail'] = self.detail_cn
         else:
-            intro['name'] = self.name_en
             intro['instrument_type'] = self.instrument_type.name_en
             if verbose == 'detail':
                 intro['detail'] = self.detail_en
