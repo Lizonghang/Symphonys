@@ -16,10 +16,11 @@
 * 获取首页新闻列表: <code>/api/home/news/cn/list/</code>
 * 获取乐团介绍内容: <code>/api/intro/intro/cn/</code>
 * 获取乐团团长列表: <code>/api/intro/leader/cn/list/</code>
-* 获取乐团团长详情: <code>/api/intro/leader/cn/detail/{{ID}}/</code>
+* 获取乐团团长介绍详情: <code>/api/intro/leader/cn/detail/{{ID}}/</code>
 * 获取驻团指挥列表: <code>/api/intro/conductor/cn/list/</code>
 * 获取驻团指挥介绍详情: <code>/api/intro/conductor/cn/detail/{{ID}}/</code>
-* 获取艺术总监内容: <code>/api/intro/director/cn/</code>
+* 获取艺术总监列表: <code>/api/intro/director/cn/list/</code>
+* 获取艺术总监介绍详情: <code>/api/intro/director/cn/detail/{{ID}}/</code>
 * 获取乐器种类列表: <code>/api/intro/instrument/cn/</code>
 * 获取乐团成员列表: <code>/api/intro/performer/cn/list/{{INSTRUMENT_ID}}/</code>
 * 获取音乐会列表: <code>/api/musicale/musicale/cn/list/{{PAGE}}/</code>

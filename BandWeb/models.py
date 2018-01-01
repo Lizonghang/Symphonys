@@ -197,7 +197,7 @@ class Director(models.Model):
     intro_en = models.CharField(u"简介(英文)", max_length=50, default='')
     detail_en = models.TextField(u"介绍详情(英文)", default='')
 
-    def get_abstract(self, lang):
+    def get_abstract(self, lang, verbose):
         intro = {
             'id': self.id,
             'name_cn': self.name_cn,
@@ -210,17 +210,14 @@ class Director(models.Model):
         }
         if lang == 'cn':
             intro['intro'] = self.intro_cn
-            intro['detail'] = self.detail_cn
+            if verbose == 'detail':
+                intro['detail'] = self.detail_cn
             return intro
         else:
             intro['intro'] = self.intro_en
-            intro['detail'] = self.detail_en
+            if verbose == 'detail':
+                intro['detail'] = self.detail_en
             return intro
-
-    def save(self, *args, **kwargs):
-        nb = Director.objects.count()
-        if nb == 0 or (nb == 1 and self.id):
-            super(Director, self).save(*args, **kwargs)
 
     def __str__(self):
         return u'艺术总监'

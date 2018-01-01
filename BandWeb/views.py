@@ -124,9 +124,17 @@ def get_conductor_detail(request, lang, id):
 
 
 @require_GET
-def get_director(request, lang):
-    obj = Director.objects.first()
-    content = obj.get_abstract(lang)
+def get_director_list(request, lang):
+    content = []
+    for obj in Director.objects.all():
+        content.append(obj.get_abstract(lang, 'abs'))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
+def get_director_detail(request, lang, id):
+    obj = Conductor.objects.get(id=id)
+    content = obj.get_abstract(lang, 'detail')
     return JsonResponse({'error': 0, 'body': content})
 
 
