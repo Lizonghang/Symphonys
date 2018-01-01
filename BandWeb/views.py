@@ -133,7 +133,7 @@ def get_director_list(request, lang):
 
 @require_GET
 def get_director_detail(request, lang, id):
-    obj = Conductor.objects.get(id=id)
+    obj = Director.objects.get(id=id)
     content = obj.get_abstract(lang, 'detail')
     return JsonResponse({'error': 0, 'body': content})
 
