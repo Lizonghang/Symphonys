@@ -214,6 +214,7 @@ class YueTuanIntroAdmin(RichTextAdmin):
     form_layout = (
         Main(
             Fieldset('中文介绍', 'content_cn'),
+            # Fieldset('中文介绍', 'content_cn', style='width:134.5%;'),
             Fieldset('英文介绍', 'content_en'),
         ),
     )
