@@ -58,7 +58,7 @@ def clip_n_rows(raw_html, lang='cn', row_max=4):
             except IndexError:
                 terminal = True
                 break
-            if word == 18 or raw_text[i] == '\n':
+            if word == 15 or raw_text[i] == '\n':
                 word = 0
                 row += 1
             i += 1
@@ -84,7 +84,7 @@ def clip_n_rows(raw_html, lang='cn', row_max=4):
             except IndexError:
                 terminal = True
                 break
-            if char == 36 or raw_text[i] == '\n':
+            if char == 32 or raw_text[i] == '\n':
                 char = 0
                 row += 1
             i += 1

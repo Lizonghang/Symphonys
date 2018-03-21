@@ -8,7 +8,7 @@ import xadmin
 class GlobalSetting(object):
     """ Bind to CommAdminView """
     site_title = u"四川交响乐团|后台管理系统"
-    site_footer = u"四川交响乐团|四川大学"
+    site_footer = u"四川交响乐团"
     menu_style = 'accordion'
     apps_label_title = {
         'auth': u'管理员账户',
@@ -141,9 +141,16 @@ class GlobalSetting(object):
                     {
                         'url': u'/backend/xadmin/BandWeb/businessdynamics/',
                         'icon': 'fa fa-music',
-                        'order': 1,
+                        'order': 3,
                         'perm': 'auth.view_user',
                         'title': u'事业动态'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/recruitment/',
+                        'icon': 'fa fa-music',
+                        'order': 4,
+                        'perm': 'auth.view_user',
+                        'title': u'人才招聘'
                     }
                 ],
                 'first_icon': 'fa fa-music',
@@ -195,6 +202,7 @@ class MusicFestivalAdmin(RichTextAdmin):
             Fieldset('图片与日期', 'img', 'publish_time'),
             Fieldset('中文信息', 'title_cn', 'content_cn'),
             Fieldset('英文信息', 'title_en', 'content_en'),
+            Fieldset('视频简介', 'video', 'video_desc_cn', 'video_desc_en')
         ),
     )
 
@@ -263,8 +271,8 @@ class DirectorAdmin(RichTextAdmin):
 
 
 class PerformerAdmin(RichTextAdmin):
-    list_display = ('name_cn', 'name_en', 'instrument_type__name_cn')
-    list_filter = ('instrument_type__name_cn',)
+    list_display = ('name_cn', 'name_en', 'instrument_type')
+    list_filter = ('instrument_type',)
     form_layout = (
         Main(
             Fieldset('头像', 'img'),
@@ -328,6 +336,17 @@ class BusinessDynamicsAdmin(RichTextAdmin):
         )
     )
 
+
+class RecruitmentAdmin(RichTextAdmin):
+    list_display = ('title_cn',)
+    form_layout = (
+        Main(
+            Fieldset('中文信息', 'title_cn', 'content_cn'),
+            Fieldset('英文信息', 'title_en', 'content_en'),
+            Fieldset('文件上传 (上传较大文件时需要等待一段时间)', 'file1', 'file2', 'file3', 'file4', 'file5')
+        )
+    )
+
 xadmin.site.register(CommAdminView, GlobalSetting)
 xadmin.site.register(BaseAdminView, BaseSetting)
 xadmin.site.register(Musicale, MusicaleAdmin)
@@ -345,3 +364,4 @@ xadmin.site.register(BeautyMelodyNews, BeautyMelodyNewsAdmin)
 # xadmin.site.register(OperaIntro, OperaIntroAdmin)
 xadmin.site.register(OperaNews, OperaNewsAdmin)
 xadmin.site.register(BusinessDynamics, BusinessDynamicsAdmin)
+xadmin.site.register(Recruitment, RecruitmentAdmin)

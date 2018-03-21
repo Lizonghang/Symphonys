@@ -2,7 +2,7 @@
 import config
 import utils
 from django.db import models
-from storage import ImageStorage
+from storage import ImageStorage, VideoStorage
 from datetime import datetime
 from django.utils.timezone import utc
 
@@ -335,6 +335,10 @@ class MusicFestival(models.Model):
     content_cn = models.TextField(u"中文内容", default='')
     title_en = models.CharField(u"英文标题", max_length=100, unique=True, default='')
     content_en = models.TextField(u"英文内容", default='')
+    video = models.FileField(u"视频文件", upload_to='video', default=None, null=True, blank=True, storage=VideoStorage(),
+                             help_text=u"仅支持MP4格式视频文件,请勿上传其它格式文件!<br/>由于服务器带宽限制,视频文件可能会上传较长时间,请耐心等待.")
+    video_desc_cn = models.TextField(u"视频简介(中文)", default='', blank=True)
+    video_desc_en = models.TextField(u"视频简介(英文)", default='', blank=True)
 
     def get_abstract(self, lang, verbose):
         intro = {
@@ -352,6 +356,15 @@ class MusicFestival(models.Model):
                 intro['abstract'] = utils.clip_n_rows(self.content_cn, lang='cn')
             else:
                 intro['detail'] = self.content_cn
+                try:
+                    intro['video'] = "{proto}://{domain}{path}".format(
+                        proto=config.PROTOCOL,
+                        domain=config.DOMAIN,
+                        path=self.video.url
+                    )
+                except ValueError:
+                    intro['video'] = ''
+                intro['video_desc'] = self.video_desc_cn
         else:
             intro['date'] = self.publish_time.strftime('%Y-%m-%d')
             intro['title'] = self.title_en
@@ -359,6 +372,15 @@ class MusicFestival(models.Model):
                 intro['abstract'] = utils.clip_n_rows(self.content_en, lang='en')
             else:
                 intro['detail'] = self.content_en
+                try:
+                    intro['video'] = "{proto}://{domain}{path}".format(
+                        proto=config.PROTOCOL,
+                        domain=config.DOMAIN,
+                        path=self.video.url
+                    )
+                except ValueError:
+                    intro['video'] = ''
+                intro['video_desc'] = self.video_desc_en
         return intro
 
     def __str__(self):
@@ -564,4 +586,46 @@ class BusinessDynamics(models.Model):
 
     class Meta:
         verbose_name = u'事业动态'
+        verbose_name_plural = verbose_name
+
+
+class Recruitment(models.Model):
+    title_cn = models.CharField(u"中文标题", max_length=100, default='')
+    content_cn = models.TextField(u"中文内容", default='')
+    title_en = models.CharField(u"英文标题", max_length=100, default='')
+    content_en = models.TextField(u"英文内容", default='')
+    file1 = models.FileField(u'文档', upload_to='file', default=None, null=True, blank=True)
+    file2 = models.FileField(u'文档', upload_to='file', default=None, null=True, blank=True)
+    file3 = models.FileField(u'文档', upload_to='file', default=None, null=True, blank=True)
+    file4 = models.FileField(u'文档', upload_to='file', default=None, null=True, blank=True)
+    file5 = models.FileField(u'文档', upload_to='file', default=None, null=True, blank=True)
+
+    def get_file(self):
+        files = []
+        for f in [self.file1, self.file2, self.file3, self.file4, self.file5]:
+            if f:
+                file_url = "{proto}://{domain}{path}".format(
+                    proto=config.PROTOCOL,
+                    domain=config.DOMAIN,
+                    path=f.url
+                )
+                fn = file_url.split('/')[-1]
+                files.append({'name': fn, 'url': file_url})
+        return files
+
+    def get_abstract(self, lang):
+        content = {'files': self.get_file()}
+        if lang == 'cn':
+            content['title'] = self.title_cn
+            content['content'] = self.content_cn
+        else:
+            content['title'] = self.title_en
+            content['content'] = self.content_en
+        return content
+
+    def __str__(self):
+        return self.title_cn
+
+    class Meta:
+        verbose_name = u'人才招聘'
         verbose_name_plural = verbose_name

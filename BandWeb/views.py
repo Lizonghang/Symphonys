@@ -225,6 +225,14 @@ def get_businessdynamics_news_detail(request, lang, id):
 
 
 @require_GET
+def get_recruitment_list(request, lang):
+    content = {'list': []}
+    for obj in Recruitment.objects.all():
+        content['list'].append(obj.get_abstract(lang))
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
 def search(request):
     return JsonResponse({'error': 1, 'code': 0, 'msg': 'Under Development'})
 

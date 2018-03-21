@@ -33,4 +33,5 @@
 * 获取歌剧院新闻全文: <code>/api/opera/news/cn/detail/{{ID}}/</code>
 * 获取事业动态列表: <code>/api/businessdynamics/news/cn/list/reverse/{{PAGE}}/</code>
 * 获取事业动态全文: <code>/api/businessdynamics/news/cn/detail/{{ID}}/</code>
+* 获取人才招聘信息: <code>/api/about/recruitment/en/list/</code>
 * (待补)搜索: <code>/api/search?keyword=KEYWORD</code>

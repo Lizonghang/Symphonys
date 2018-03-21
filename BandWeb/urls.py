@@ -58,6 +58,10 @@ businessdynamics = [
     url(r'^news/(?P<lang>[ce]n)/detail/(?P<id>[0-9]+)/$', views.get_businessdynamics_news_detail)
 ]
 
+about = [
+    url(r'^recruitment/(?P<lang>[ce]n)/list/$', views.get_recruitment_list)
+]
+
 urlpatterns = [
     url(r'^richtext/media/upload/$', views.upload_media),
     url(r'^search/$', views.search),
@@ -66,5 +70,6 @@ urlpatterns = [
     url(r'^beautymelody/', include(beautymelody)),
     url(r'^opera/', include(opera)),
     url(r'^businessdynamics/', include(businessdynamics)),
-    url(r'^musicale/', include(musicale))
+    url(r'^musicale/', include(musicale)),
+    url(r'^about/', include(about))
 ]
