@@ -59,7 +59,8 @@ businessdynamics = [
 ]
 
 about = [
-    url(r'^recruitment/(?P<lang>[ce]n)/list/$', views.get_recruitment_list)
+    url(r'^recruitment/(?P<lang>[ce]n)/list/$', views.get_recruitment_list),
+    url(r'^contactus/(?P<lang>[ce]n)/$', views.get_contactus)
 ]
 
 urlpatterns = [

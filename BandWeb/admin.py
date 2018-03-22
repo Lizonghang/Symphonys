@@ -144,18 +144,32 @@ class GlobalSetting(object):
                         'order': 3,
                         'perm': 'auth.view_user',
                         'title': u'事业动态'
-                    },
-                    {
-                        'url': u'/backend/xadmin/BandWeb/recruitment/',
-                        'icon': 'fa fa-music',
-                        'order': 4,
-                        'perm': 'auth.view_user',
-                        'title': u'人才招聘'
                     }
                 ],
                 'first_icon': 'fa fa-music',
                 'first_url': u'/backend/xadmin/BandWeb/beautymelodynews/',
                 'title': u'新闻动态'
+            },
+            {
+                'menus': [
+                    {
+                        'url': u'/backend/xadmin/BandWeb/contactus/',
+                        'icon': 'fa fa-music',
+                        'order': 1,
+                        'perm': 'auth.view_user',
+                        'title': u'联系我们'
+                    },
+                    {
+                        'url': u'/backend/xadmin/BandWeb/recruitment/',
+                        'icon': 'fa fa-music',
+                        'order': 2,
+                        'perm': 'auth.view_user',
+                        'title': u'人才招聘'
+                    }
+                ],
+                'first_icon': 'fa fa-music',
+                'first_url': u'/backend/xadmin/BandWeb/contactus/',
+                'title': u'关于我们'
             }
         ]
 
@@ -347,6 +361,16 @@ class RecruitmentAdmin(RichTextAdmin):
         )
     )
 
+
+class ContactUsAdmin(RichTextAdmin):
+    form_layout = (
+        Main(
+            Fieldset('地图', 'img'),
+            Fieldset('中文信息', 'title_cn', 'content_cn'),
+            Fieldset('英文信息', 'title_en', 'content_en'),
+        )
+    )
+
 xadmin.site.register(CommAdminView, GlobalSetting)
 xadmin.site.register(BaseAdminView, BaseSetting)
 xadmin.site.register(Musicale, MusicaleAdmin)
@@ -365,3 +389,4 @@ xadmin.site.register(BeautyMelodyNews, BeautyMelodyNewsAdmin)
 xadmin.site.register(OperaNews, OperaNewsAdmin)
 xadmin.site.register(BusinessDynamics, BusinessDynamicsAdmin)
 xadmin.site.register(Recruitment, RecruitmentAdmin)
+xadmin.site.register(ContactUs, ContactUsAdmin)

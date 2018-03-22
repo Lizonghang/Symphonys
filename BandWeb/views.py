@@ -233,6 +233,13 @@ def get_recruitment_list(request, lang):
 
 
 @require_GET
+def get_contactus(request, lang):
+    obj = ContactUs.objects.first()
+    content = obj.get_abstract(lang)
+    return JsonResponse({'error': 0, 'body': content})
+
+
+@require_GET
 def search(request):
     return JsonResponse({'error': 1, 'code': 0, 'msg': 'Under Development'})
 

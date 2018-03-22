@@ -469,6 +469,7 @@ class BeautyMelodyNews(models.Model):
         verbose_name = u'国乐新闻'
         verbose_name_plural = verbose_name
 
+
 """
 class OperaIntro(models.Model):
     img = models.ImageField(u"歌剧院展示图", upload_to='image', default=None, storage=ImageStorage())
@@ -628,4 +629,39 @@ class Recruitment(models.Model):
 
     class Meta:
         verbose_name = u'人才招聘'
+        verbose_name_plural = verbose_name
+
+
+class ContactUs(models.Model):
+    title_cn = models.CharField(u"中文标题", max_length=100, default='')
+    content_cn = models.TextField(u"中文内容", default='')
+    title_en = models.CharField(u"英文标题", max_length=100, default='')
+    content_en = models.TextField(u"英文内容", default='')
+    img = models.ImageField(u"缩略图", upload_to='image', default='', storage=ImageStorage())
+
+    def get_abstract(self, lang='cn'):
+        info = {'img': "{proto}://{domain}{path}".format(
+            proto=config.PROTOCOL,
+            domain=config.DOMAIN,
+            path=self.img.url
+        )}
+        if lang == 'cn':
+            info['title'] = self.title_cn
+            info['content'] = self.content_cn
+            return info
+        else:
+            info['title'] = self.title_en
+            info['content'] = self.content_en
+            return info
+
+    def save(self, *args, **kwargs):
+        nb = ContactUs.objects.count()
+        if nb == 0 or (nb == 1 and self.id):
+            super(ContactUs, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return u'联系我们'
+
+    class Meta:
+        verbose_name = u'联系我们'
         verbose_name_plural = verbose_name
