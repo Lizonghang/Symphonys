@@ -3,7 +3,6 @@
 ## 全局声明
 
 * 传输协议: http
-* 主机域名: www.desckie.com
 * 请求方法: GET
 * 中英文切换: <code>cn</code>为获取中文返回，<code>en</code>为获取英文返回。
 * 获取简介/详情: <code>abstract</code>为获取介绍简介，<code>detail</code>为获取介绍全文。
